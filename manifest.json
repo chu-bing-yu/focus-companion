@@ -1,8 +1,8 @@
 {
   "id": "focus-companion",
   "name": "角色陪伴番茄钟",
-  "version": "0.3.1",
-  "description": "待办清单与每日目标、番茄钟、五种角色模式、监督权限、AI 聊天与聊天室内的提示词控制台。",
+  "version": "0.3.2",
+  "description": "待办与每日目标、番茄钟、五种角色模式、监督权限、聊天室主动说话与提示词控制台。",
   "author": "chu-bing-yu",
   "entry": "https://raw.githubusercontent.com/chu-bing-yu/focus-companion/main/plugin.js",
   "hash": "",
