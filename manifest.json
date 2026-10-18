@@ -1,8 +1,8 @@
 {
   "id": "focus-companion",
   "name": "角色陪伴番茄钟",
-  "version": "0.5.0",
-  "description": "待办与目标、番茄钟、角色监督、聊天室、可编辑的便签墙与聊天存档。",
+  "version": "0.6.0",
+  "description": "待办与目标、番茄钟、角色监督、聊天室、可换样式的便签墙与聊天存档。",
   "author": "chu-bing-yu",
   "entry": "https://raw.githubusercontent.com/chu-bing-yu/focus-companion/main/plugin.js",
   "hash": "",
