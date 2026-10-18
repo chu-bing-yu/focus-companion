@@ -1,4 +1,4 @@
-/* focus-companion v0.3.2 | built 2026-10-18T05:15:22.078Z */
+/* focus-companion v0.3.3 | built 2026-10-18T05:32:23.677Z */
 (() => {
   // src/ui/theme.css
   var theme_default = '/* 主题变量：只在插件根容器内生效 */\n.fc-root {\n  --fc-bg: #ffffff;\n  --fc-soft: #f6f7f9;\n  --fc-soft-2: #eef0f3;\n  --fc-line: #ecedf0;\n  --fc-line-strong: #dcdee3;\n  --fc-ink: #1b1c1f;\n  --fc-ink-2: #55585e;\n  --fc-muted: #8b9099;\n  --fc-accent: #1b1c1f;\n  --fc-on-accent: #ffffff;\n  --fc-ok: #2f9e44;\n  --fc-warn: #c0392b;\n  --fc-heat-0: #f4f5f7;\n  --fc-heat-1: #dfe3e8;\n  --fc-heat-2: #b9c0c9;\n  --fc-heat-3: #7d858f;\n  --fc-heat-4: #2b2d31;\n\n  --fc-r-lg: 18px;\n  --fc-r-md: 12px;\n  --fc-r-sm: 8px;\n  --fc-r-full: 999px;\n\n  --fc-shadow: 0 10px 30px rgba(17, 18, 20, 0.08);\n  --fc-font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;\n  --fc-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;\n}\n\n.fc-root[data-theme="dark"] {\n  --fc-bg: #151619;\n  --fc-soft: #1d1f23;\n  --fc-soft-2: #24262b;\n  --fc-line: #2a2d33;\n  --fc-line-strong: #383c43;\n  --fc-ink: #f2f3f5;\n  --fc-ink-2: #c2c6cd;\n  --fc-muted: #8c919b;\n  --fc-accent: #f2f3f5;\n  --fc-on-accent: #151619;\n  --fc-heat-0: #212429;\n  --fc-heat-1: #2f333a;\n  --fc-heat-2: #4a5058;\n  --fc-heat-3: #8d949e;\n  --fc-heat-4: #e6e8ec;\n  --fc-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);\n}\n';
@@ -267,8 +267,10 @@
     "【角色设定】{{char_persona}}",
     "【对方】{{user}}。{{user_persona}}",
     "",
-    "【长期记忆】{{memory}}",
-    "【最近对话】{{recent}}",
+    "【核心记忆】{{memory_core}}",
+    "【长期记忆】{{memory_long}}",
+    "【最近对话】{{memory_short}}",
+    "【相关记忆】{{memory_vector}}",
     "",
     "【此刻】{{user}}正在专注（{{mode}}），还剩 {{remaining}}。{{task}}现在是 {{time}}。",
     "",
@@ -283,7 +285,9 @@
     "你就是{{char}}，正在陪{{user}}专注。",
     "【角色设定】{{char_persona}}",
     "【对方】{{user}}。{{user_persona}}",
-    "【记忆】{{memory}}",
+    "【核心记忆】{{memory_core}}",
+    "【长期记忆】{{memory_long}}",
+    "【最近对话】{{memory_short}}",
     "【此刻】{{mode}}，还剩 {{remaining}}。{{task}}",
     "",
     "【这次是主动开口】只说 1 句，不超过 40 字，口语，不提问，不总结，不连续说两句。",
@@ -298,8 +302,10 @@
     { key: "remaining", label: "剩余时间" },
     { key: "task", label: "当前待办" },
     { key: "time", label: "当前时间" },
-    { key: "memory", label: "长期记忆" },
-    { key: "recent", label: "最近对话" }
+    { key: "memory_core", label: "核心记忆" },
+    { key: "memory_long", label: "长期记忆" },
+    { key: "memory_short", label: "短期记忆" },
+    { key: "memory_vector", label: "向量记忆" }
   ];
   var PATTERN = /\{\{(\w+)\}\}/g;
   function renderPrompt(template, vars) {
@@ -318,7 +324,7 @@
   }
 
   // src/core/settings.js
-  var SCHEMA_VERSION = 6;
+  var SCHEMA_VERSION = 7;
   var LIMITS = {
     focusMin: [1, 180],
     shortBreakMin: [1, 60],
@@ -473,11 +479,14 @@
     out.fallback = clampBool(raw.fallback, def.fallback);
     return out;
   }
+  function upgradeMemoryPrompt(text) {
+    return String(text).replace("【长期记忆】{{memory}}", "【核心记忆】{{memory_core}}\n【长期记忆】{{memory_long}}\n【相关记忆】{{memory_vector}}").replace("【最近对话】{{recent}}", "【最近对话】{{memory_short}}").replace("【记忆】{{memory}}", "【核心记忆】{{memory_core}}\n【长期记忆】{{memory_long}}\n【最近对话】{{memory_short}}");
+  }
   function mergePrompt(value, fallback) {
     var text = typeof value === "string" ? value : "";
     text = text.replace(/\r\n/g, "\n").trim();
     if (!text) return fallback;
-    return text.slice(0, 4e3);
+    return upgradeMemoryPrompt(text).slice(0, 4e3);
   }
   function mergePrompts(raw, def) {
     var out = Object.assign({}, def);
@@ -1405,6 +1414,8 @@
       var character = input.character || null;
       var persona = input.persona || null;
       var remaining2 = Number(input.remainingMs) || 0;
+      var mem = input.memory || {};
+      var combined = [mem.core, mem.long, mem.vector].filter(Boolean).join("\n");
       return {
         char: pickName(character, "角色"),
         user: pickName(persona, "你"),
@@ -1414,8 +1425,13 @@
         remaining: remaining2 > 0 ? fmtClock(remaining2) : "未知",
         task: input.taskName ? "当前待办：" + input.taskName + "。" : "",
         time: fmtTime(input.now || 0),
-        memory: input.memory && input.memory.long || "（无）",
-        recent: input.memory && input.memory.short || "（无）"
+        memory_core: mem.core || "（无）",
+        memory_long: mem.long || "（无）",
+        memory_short: mem.short || "（无）",
+        memory_vector: mem.vector || "（无）",
+        // 兼容旧提示词里的 {{memory}} / {{recent}}
+        memory: combined || "（无）",
+        recent: mem.short || "（无）"
       };
     }
     function historyMessages(input) {
@@ -1665,13 +1681,17 @@
       selectedTaskId: "",
       chat: [],
       unreadChat: 0,
+      pendingChat: 0,
       lastSupervision: null,
       calendar: { year: new Date(now).getFullYear(), month: new Date(now).getMonth() }
     });
     var timer = null;
     var destroyed = false;
     var charCtx = { character: null, persona: null };
-    var memCtx = { long: "", short: "", loaded: false };
+    function emptyMemory(loaded) {
+      return { core: "", long: "", short: "", vector: "", loaded: !!loaded };
+    }
+    var memCtx = emptyMemory(false);
     var aiState = { busy: false, lastAt: 0, lastActiveAt: now, lastProactiveAt: 0 };
     var dialogue = createDialogue({
       host,
@@ -1738,7 +1758,7 @@
       }
       aiState.lastActiveAt = Date.now();
       aiState.lastProactiveAt = 0;
-      state.set({ chat: [], unreadChat: 0 });
+      state.set({ chat: [], unreadChat: 0, pendingChat: 0 });
       bus.emit(EVENTS.SESSION_STARTED, { session: s });
       return s;
     }
@@ -1750,7 +1770,7 @@
       } else {
         persistSession(newIdle(next.phase, next.round));
         stopTicker();
-        state.set({ chat: [], unreadChat: 0 });
+        state.set({ chat: [], unreadChat: 0, pendingChat: 0 });
       }
       state.set({ now: Date.now() });
     }
@@ -1830,20 +1850,31 @@
       }
       var persona = character ? await host.persona.forConversation(character.conversationId) : null;
       charCtx = { character, persona };
-      memCtx = { long: "", short: "", loaded: false };
+      memCtx = emptyMemory(false);
       refreshMemoryContext();
       return charCtx;
     }
+    function formatMemoryCore(raw) {
+      if (!raw || typeof raw !== "object") return "";
+      var core = raw.core;
+      if (!core) return "";
+      var text = typeof core === "string" ? core : core.summary || core.text || core.content;
+      return text ? String(text).slice(0, 800) : "";
+    }
     function formatMemoryLong(raw) {
       if (!raw || typeof raw !== "object") return "";
-      var parts = [];
-      if (raw.core && raw.core.summary) parts.push(String(raw.core.summary).slice(0, 600));
-      var facts = Array.isArray(raw.facts) ? raw.facts.slice(0, 8) : [];
-      facts.forEach(function(f) {
+      var facts = Array.isArray(raw.facts) ? raw.facts.slice(0, 12) : [];
+      return facts.map(function(f) {
         var text = f && (f.summaryText || f.summary || f.text);
-        if (text) parts.push("· " + String(text).slice(0, 120));
-      });
-      return parts.join("\n").slice(0, 1200);
+        return text ? "· " + String(text).slice(0, 120) : "";
+      }).filter(Boolean).join("\n").slice(0, 1200);
+    }
+    function formatMemoryVector(raw) {
+      if (!raw || !Array.isArray(raw.vectors)) return "";
+      return raw.vectors.slice(0, 8).map(function(v) {
+        var text = v && (v.summaryText || v.summary || v.text);
+        return text ? "· " + String(text).slice(0, 120) : "";
+      }).filter(Boolean).join("\n").slice(0, 900);
     }
     function formatMemoryShort(list) {
       if (!Array.isArray(list)) return "";
@@ -1857,20 +1888,22 @@
     function refreshMemoryContext() {
       if (memoryPending) return memoryPending;
       if (!charCtx.character || !charCtx.character.conversationId) {
-        memCtx = { long: "", short: "", loaded: true };
+        memCtx = emptyMemory(true);
         return Promise.resolve(memCtx);
       }
       var cid = charCtx.character.conversationId;
       memoryPending = Promise.all([host.memory.longTerm(cid), host.memory.shortTerm(cid, 8)]).then(function(results) {
         memCtx = {
+          core: formatMemoryCore(results[0]),
           long: formatMemoryLong(results[0]),
           short: formatMemoryShort(results[1]),
+          vector: formatMemoryVector(results[0]),
           loaded: true
         };
         memoryPending = null;
         return memCtx;
       }, function() {
-        memCtx = { long: "", short: "", loaded: true };
+        memCtx = emptyMemory(true);
         memoryPending = null;
         return memCtx;
       });
@@ -1978,6 +2011,7 @@
     function maybeProactive(at) {
       if (!settings.chat.proactive) return;
       if (!chatAllowed() || !settings.permissions.respond) return;
+      if (Number(state.get().pendingChat) > 0) return;
       var s = state.get().session;
       if (!s || s.status !== STATUS.RUNNING || s.phase !== PHASE.FOCUS) return;
       if (isMuted(s, at)) return;
@@ -2107,8 +2141,9 @@
       setGoal: function(value) {
         applySettings({ goal: { dailyPomodoros: value } });
       },
-      /** 输入框的小飞机：不用户发言，直接让角色开口 */
+      /** 输入框的小飞机：有未回复消息就先回复，否则让角色主动开口 */
       requestProactive: function() {
+        if ((Number(state.get().pendingChat) || 0) > 0) return actions.requestReply();
         return runProactive(true);
       },
       /** 聊天设置里保存提示词，kind: 'chat' | 'proactive' */
@@ -2146,7 +2181,7 @@
       },
       /** 聊天设置打开时刷新记忆占位符内容 */
       refreshMemory: function() {
-        memCtx = { long: "", short: "", loaded: false };
+        memCtx = emptyMemory(false);
         return refreshMemoryContext();
       },
       /** 编辑角色这一轮的回复，后续上下文会用改后的文本 */
@@ -2230,7 +2265,8 @@
         return true;
       },
       /* ---------- 角色聊天 ---------- */
-      sendChat: async function(raw) {
+      /** 回车：只把话放进聊天室，不调用 API */
+      appendChat: function(raw) {
         var text = String(raw || "").trim().slice(0, 500);
         var at = Date.now();
         var s = state.get().session;
@@ -2259,10 +2295,41 @@
           host.ui.toast(mt().noAiApi);
           return { ok: false, reason: "no_api" };
         }
+        pushChat({ role: "user", text, at });
+        state.set({ pendingChat: (Number(state.get().pendingChat) || 0) + 1 });
+        aiState.lastActiveAt = at;
+        return { ok: true };
+      },
+      /** 小飞机：有待回复的消息才调 API；没有就转为主动开口 */
+      requestReply: async function() {
+        var at = Date.now();
+        var s = state.get().session;
+        var pending = Number(state.get().pendingChat) || 0;
+        if (!s || s.status !== STATUS.RUNNING || s.phase !== PHASE.FOCUS) {
+          host.ui.toast("专注进行中才能请求回复");
+          return { ok: false, reason: "not_running" };
+        }
+        if (isMuted(s, at)) {
+          host.ui.toast("现在被禁言了，" + mt().waitMute);
+          return { ok: false, reason: "muted" };
+        }
+        if (!allows(settings.focusMode, "freeChat")) {
+          host.ui.toast("当前模式不支持聊天");
+          return { ok: false, reason: "mode" };
+        }
+        if (!settings.ai.enabled) {
+          host.ui.toast(mt().aiOff);
+          return { ok: false, reason: "ai_off" };
+        }
+        if (!host.caps.ai) {
+          host.ui.toast(mt().noAiApi);
+          return { ok: false, reason: "no_api" };
+        }
         if (aiState.busy) {
           host.ui.toast("角色还在回复上一句");
           return { ok: false, reason: "busy" };
         }
+        if (pending <= 0) return runProactive(true);
         if (aiQuotaLeft() <= 0) {
           host.ui.toast("今天的 AI 次数已用完");
           return { ok: false, reason: "quota" };
@@ -2272,16 +2339,23 @@
         aiState.lastActiveAt = at;
         state.set({ aiBusy: true });
         markAiUse();
-        pushChat({ role: "user", text, at });
         var res = await askCharacter("chat");
         aiState.busy = false;
         state.set({ aiBusy: false });
+        function clearPending(count) {
+          var left = Math.max(0, (Number(state.get().pendingChat) || 0) - count);
+          state.set({ pendingChat: left });
+        }
         if (res.ok) {
           pushChat({ role: "char", text: res.text, at: Date.now() });
+          clearPending(pending);
           aiState.lastActiveAt = Date.now();
         } else {
           var fallback = fallbackLine();
-          if (fallback) pushChat({ role: "char", text: fallback, at: Date.now(), failed: true });
+          if (fallback) {
+            pushChat({ role: "char", text: fallback, at: Date.now(), failed: true });
+            clearPending(pending);
+          }
           host.ui.toast(aiFailText(res.reason));
         }
         return res;
@@ -2358,7 +2432,7 @@
       },
       selectCharacter: function(id, name) {
         applySettings({ characterId: id || "", characterName: name || "" });
-        memCtx = { long: "", short: "", loaded: false };
+        memCtx = emptyMemory(false);
         var s = state.get().session;
         if (s && (s.status === STATUS.RUNNING || s.status === STATUS.PAUSED)) {
           persistSession(Object.assign({}, s, {
@@ -2395,10 +2469,11 @@
           selectedTaskId: "",
           chat: [],
           unreadChat: 0,
+          pendingChat: 0,
           focusScreen: "list",
           session
         });
-        memCtx = { long: "", short: "", loaded: false };
+        memCtx = emptyMemory(false);
         refreshCharacterContext();
         return result;
       },
@@ -2418,11 +2493,12 @@
           selectedTaskId: "",
           chat: [],
           unreadChat: 0,
+          pendingChat: 0,
           focusScreen: "list",
           session,
           lastSupervision: null
         });
-        memCtx = { long: "", short: "", loaded: false };
+        memCtx = emptyMemory(false);
         store.saveSettings(settings);
         store.saveSession(session);
         stopTicker();
@@ -3422,13 +3498,17 @@
     });
     function sendText() {
       var text = input.value;
-      if (!String(text || "").trim()) return;
-      input.value = "";
-      ctx.actions.sendChat(text);
+      if (!String(text || "").trim()) return false;
+      var res = ctx.actions.appendChat(text);
+      if (res && res.ok) input.value = "";
+      return !!(res && res.ok);
     }
     function request() {
-      if (String(input.value || "").trim()) sendText();
-      else ctx.actions.requestProactive();
+      if (String(input.value || "").trim()) {
+        if (sendText()) ctx.actions.requestReply();
+        return;
+      }
+      ctx.actions.requestProactive();
     }
     var sendBtn = h("button", {
       class: "fc-chat__send fc-chat__send--icon",
@@ -3461,7 +3541,7 @@
       if (!chat.length) {
         listEl.appendChild(h("p", {
           class: "fc-chat__empty",
-          text: "回车发送；小飞机有字就发送，没字就让 TA 先开口。点角色的气泡可以改这一句。"
+          text: "回车先把话放进聊天室；点小飞机才会请求 TA 回复。点角色的气泡可以改这一句。"
         }));
       }
       chat.forEach(function(msg) {
@@ -3499,11 +3579,12 @@
       else if (!info.freeChat) statusEl.textContent = "当前模式不支持聊天";
       else if (session) statusEl.textContent = phaseLabel(session.phase) + " · 剩 " + fmtClock(remaining(session, now));
       else statusEl.textContent = "还没有开始专注";
-      var canSend = running && !s.aiBusy && mutedLeft <= 0 && settings.ai.enabled;
-      input.disabled = !canSend;
-      sendBtn.disabled = !canSend;
-      input.placeholder = mutedLeft > 0 ? "禁言中，" + fmtClock(mutedLeft) + " 后恢复" : !settings.ai.enabled ? "AI 已关闭" : canSend ? "说点什么，回车发送…" : "开始专注后可以聊天";
-      hintEl.textContent = mutedLeft > 0 ? "被禁言了，" + fmtClock(mutedLeft) + " 后恢复发言。" : canSend ? "回车发送；小飞机有字就发送，没字就让 TA 先开口。" : "专注进行中才能发消息。";
+      var canType = running && mutedLeft <= 0 && settings.ai.enabled;
+      var pending = Number(s.pendingChat) || 0;
+      input.disabled = !canType;
+      sendBtn.disabled = !canType || !!s.aiBusy;
+      input.placeholder = mutedLeft > 0 ? "禁言中，" + fmtClock(mutedLeft) + " 后恢复" : !settings.ai.enabled ? "AI 已关闭" : canType ? "回车只发消息…" : "开始专注后可以聊天";
+      hintEl.textContent = mutedLeft > 0 ? "被禁言了，" + fmtClock(mutedLeft) + " 后恢复发言。" : !canType ? "专注进行中才能发消息。" : pending > 0 ? "有 " + pending + " 条还没请求回复，点小飞机让 TA 回复。" : "回车只发消息；小飞机请求回复，没字时让 TA 主动开口。";
       if (s.chat !== lastChat) {
         lastChat = s.chat;
         renderChat(s);
@@ -3656,8 +3737,11 @@
     function refresh() {
       var template = tab === "chat" ? chatArea.value : proactiveArea.value;
       var p = ctx.actions.previewPrompt(tab, template);
-      consoleEl.textContent = p.system;
-      consoleStats.textContent = "字符 " + p.chars + " · 预估 " + p.totalTokens + " tokens（提示词 " + p.systemTokens + " + 历史 " + p.historyTokens + " / " + p.historyCount + " 条）";
+      consoleEl.textContent = p.messages.map(function(m) {
+        var label = m.role === "system" ? "SYSTEM" : m.role === "user" ? "USER" : "ASSISTANT";
+        return "=== " + label + " ===\n" + m.content;
+      }).join("\n\n");
+      consoleStats.textContent = "system " + p.chars + " 字符 · 上下文 " + p.historyCount + " 条 · 预估 " + p.totalTokens + " tokens（提示词 " + p.systemTokens + " + 历史 " + p.historyTokens + "）";
     }
     var tabChatBtn = h("button", {
       class: "fc-console__tab is-active",
@@ -3831,7 +3915,7 @@
           consoleStats,
           h("p", {
             class: "fc-hint",
-            text: "显示的是当前实际会发送的 system 提示词（含角色与面具），token 为估算值，不代表计费。"
+            text: "显示完整请求：SYSTEM 是提示词，USER / ASSISTANT 是聊天室上下文（含还没请求回复的发言）。token 为估算值，不代表计费。"
           })
         ])
       ])
@@ -4630,7 +4714,7 @@
   async function mount(container, roche) {
     ensureStyle();
     container.classList.add("fc-host");
-    var created = await createApp({ container, roche, version: "0.3.2" });
+    var created = await createApp({ container, roche, version: "0.3.3" });
     app = created;
     shell = mountShell(container, created.ctx);
   }
@@ -4653,7 +4737,7 @@
   window.RochePlugin.register({
     id: "focus-companion",
     name: "角色陪伴番茄钟",
-    version: "0.3.2",
+    version: "0.3.3",
     description: "专注计时、专注记录与统计，后续加入角色陪伴与语音。",
     apps: [
       {
