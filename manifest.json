@@ -1,7 +1,7 @@
 {
   "id": "focus-companion",
   "name": "角色陪伴番茄钟",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "专注计时、专注记录与统计；后续加入角色陪伴与语音。",
   "author": "chu-bing-yu",
   "entry": "https://raw.githubusercontent.com/chu-bing-yu/focus-companion/main/plugin.js",
