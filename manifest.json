@@ -1,14 +1,15 @@
 {
   "id": "focus-companion",
   "name": "角色陪伴番茄钟",
-  "version": "0.1.2",
-  "description": "五种专注模式、四项角色监督权限与锁定房间；专注记录与统计。",
+  "version": "0.2.0",
+  "description": "待办清单 + 番茄钟 + 五种角色模式 + 监督权限 + AI 聊天与自定义提示词。",
   "author": "chu-bing-yu",
   "entry": "https://raw.githubusercontent.com/chu-bing-yu/focus-companion/main/plugin.js",
   "hash": "",
   "permissions": [
     "storage",
     "ui",
-    "character"
+    "character",
+    "ai"
   ]
 }
