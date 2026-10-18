@@ -1,13 +1,13 @@
-/* focus-companion v0.3.3 | built 2026-10-18T05:32:23.677Z */
+/* focus-companion v0.4.0 | built 2026-10-18T05:58:54.777Z */
 (() => {
   // src/ui/theme.css
   var theme_default = '/* 主题变量：只在插件根容器内生效 */\n.fc-root {\n  --fc-bg: #ffffff;\n  --fc-soft: #f6f7f9;\n  --fc-soft-2: #eef0f3;\n  --fc-line: #ecedf0;\n  --fc-line-strong: #dcdee3;\n  --fc-ink: #1b1c1f;\n  --fc-ink-2: #55585e;\n  --fc-muted: #8b9099;\n  --fc-accent: #1b1c1f;\n  --fc-on-accent: #ffffff;\n  --fc-ok: #2f9e44;\n  --fc-warn: #c0392b;\n  --fc-heat-0: #f4f5f7;\n  --fc-heat-1: #dfe3e8;\n  --fc-heat-2: #b9c0c9;\n  --fc-heat-3: #7d858f;\n  --fc-heat-4: #2b2d31;\n\n  --fc-r-lg: 18px;\n  --fc-r-md: 12px;\n  --fc-r-sm: 8px;\n  --fc-r-full: 999px;\n\n  --fc-shadow: 0 10px 30px rgba(17, 18, 20, 0.08);\n  --fc-font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;\n  --fc-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;\n}\n\n.fc-root[data-theme="dark"] {\n  --fc-bg: #151619;\n  --fc-soft: #1d1f23;\n  --fc-soft-2: #24262b;\n  --fc-line: #2a2d33;\n  --fc-line-strong: #383c43;\n  --fc-ink: #f2f3f5;\n  --fc-ink-2: #c2c6cd;\n  --fc-muted: #8c919b;\n  --fc-accent: #f2f3f5;\n  --fc-on-accent: #151619;\n  --fc-heat-0: #212429;\n  --fc-heat-1: #2f333a;\n  --fc-heat-2: #4a5058;\n  --fc-heat-3: #8d949e;\n  --fc-heat-4: #e6e8ec;\n  --fc-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);\n}\n';
 
   // src/ui/base.css
-  var base_default = '/* 基础布局与通用控件：所有选择器都以 .fc-root 开头 */\n\n.fc-root {\n  position: relative; /* 锁房间遮罩相对根容器定位，不用 position: fixed */\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n  height: 100%;\n  min-width: 0;\n  min-height: 0;\n  overflow: hidden;\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  font-family: var(--fc-font);\n  font-size: 14px;\n  line-height: 1.55;\n  -webkit-font-smoothing: antialiased;\n}\n\n.fc-root [hidden] { display: none !important; }\n\n.fc-root *,\n.fc-root *::before,\n.fc-root *::after { box-sizing: border-box; }\n\n.fc-root h1,\n.fc-root h2,\n.fc-root h3,\n.fc-root p { margin: 0; }\n\n.fc-main {\n  flex: 1 1 auto;\n  min-height: 0;\n  overflow-y: auto;\n  overflow-x: hidden;\n  -webkit-overflow-scrolling: touch;\n}\n\n.fc-page {\n  padding: 18px 18px 28px;\n  min-height: 100%;\n}\n\n/* ---------- header ---------- */\n\n.fc-header {\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  gap: 12px;\n  padding: 4px 0 16px;\n}\n\n.fc-header__title {\n  font-size: 20px;\n  font-weight: 600;\n  letter-spacing: 0.2px;\n}\n\n.fc-header__sub {\n  margin-top: 3px;\n  font-size: 12.5px;\n  color: var(--fc-muted);\n}\n\n/* ---------- card ---------- */\n\n.fc-card {\n  background: var(--fc-bg);\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-lg);\n  padding: 16px;\n  margin-bottom: 12px;\n}\n\n.fc-card--soft { background: var(--fc-soft); border-color: transparent; }\n\n.fc-card__title {\n  font-size: 13px;\n  font-weight: 600;\n  color: var(--fc-ink-2);\n  margin-bottom: 10px;\n}\n\n/* ---------- buttons ---------- */\n\n.fc-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 6px;\n  min-height: 38px;\n  padding: 0 16px;\n  border: 1px solid var(--fc-line-strong);\n  border-radius: var(--fc-r-full);\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  font: 500 13.5px/1 var(--fc-font);\n  cursor: pointer;\n  transition: transform .08s ease, background .15s ease, opacity .15s ease;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-btn:active { transform: scale(0.97); }\n.fc-btn[disabled] { opacity: .4; pointer-events: none; }\n\n.fc-btn--primary {\n  background: var(--fc-accent);\n  border-color: var(--fc-accent);\n  color: var(--fc-on-accent);\n}\n\n.fc-btn--ghost { background: transparent; border-color: transparent; color: var(--fc-ink-2); }\n.fc-btn--danger { color: var(--fc-warn); border-color: var(--fc-line-strong); }\n.fc-btn--block { display: flex; width: 100%; }\n.fc-btn--lg { min-height: 48px; padding: 0 30px; font-size: 15px; }\n\n.fc-icon { display: inline-flex; width: 18px; height: 18px; }\n.fc-icon svg { width: 100%; height: 100%; }\n\n/* 关闭按钮：宿主不提供，由插件自带 */\n.fc-close {\n  flex: 0 0 auto;\n  width: 32px;\n  height: 32px;\n  border-radius: 50%;\n  border: 1px solid var(--fc-line);\n  background: transparent;\n  color: var(--fc-ink-2);\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-close:active { background: var(--fc-soft); }\n.fc-close .fc-icon { width: 14px; height: 14px; }\n\n/* ---------- dock ---------- */\n\n.fc-dock {\n  flex: 0 0 auto;\n  display: flex;\n  border-top: 1px solid var(--fc-line);\n  background: var(--fc-bg);\n  padding: 6px 8px 8px;\n}\n\n.fc-dock__item {\n  flex: 1 1 0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 3px;\n  padding: 6px 0 2px;\n  border: 0;\n  background: transparent;\n  color: var(--fc-muted);\n  font: 500 10.5px/1.2 var(--fc-font);\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-dock__item .fc-icon { width: 21px; height: 21px; }\n.fc-dock__item[aria-selected="true"] { color: var(--fc-ink); }\n\n/* ---------- tiles ---------- */\n\n.fc-tiles {\n  display: grid;\n  grid-template-columns: repeat(3, minmax(0, 1fr));\n  gap: 8px;\n  margin-bottom: 12px;\n}\n\n.fc-tile {\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-md);\n  padding: 12px 10px;\n}\n\n.fc-tile__label { font-size: 11.5px; color: var(--fc-muted); }\n.fc-tile__value { font-size: 17px; font-weight: 600; margin-top: 4px; letter-spacing: .2px; }\n.fc-tile__sub { font-size: 10.5px; color: var(--fc-muted); margin-top: 2px; }\n\n/* ---------- list ---------- */\n\n.fc-list { border: 1px solid var(--fc-line); border-radius: var(--fc-r-md); overflow: hidden; }\n\n.fc-row {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 13px 14px;\n  border-bottom: 1px solid var(--fc-line);\n  background: var(--fc-bg);\n}\n\n.fc-row:last-child { border-bottom: 0; }\n.fc-row--tap { cursor: pointer; }\n.fc-row--tap:active { background: var(--fc-soft); }\n\n.fc-row__main { flex: 1 1 auto; min-width: 0; }\n.fc-row__title { font-size: 14px; }\n.fc-row__sub { font-size: 11.5px; color: var(--fc-muted); margin-top: 2px; }\n.fc-row__value { font-size: 14px; font-variant-numeric: tabular-nums; }\n.fc-row__action { color: var(--fc-muted); font-size: 12px; }\n\n/* ---------- empty / loading ---------- */\n\n.fc-empty {\n  padding: 40px 18px;\n  text-align: center;\n  color: var(--fc-muted);\n}\n\n.fc-empty__title { font-size: 14px; color: var(--fc-ink-2); margin-bottom: 6px; }\n.fc-empty__desc { font-size: 12.5px; line-height: 1.7; }\n\n.fc-loading {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 10px;\n  padding: 60px 0;\n  color: var(--fc-muted);\n  font-size: 13px;\n}\n\n.fc-loading__dot {\n  width: 14px;\n  height: 14px;\n  border: 2px solid var(--fc-line-strong);\n  border-top-color: var(--fc-ink);\n  border-radius: 50%;\n  animation: fc-spin .8s linear infinite;\n}\n\n@keyframes fc-spin { to { transform: rotate(360deg); } }\n\n/* ---------- dialog ---------- */\n\n/* 弹层挂在 body 上，拿不到 .fc-root 的变量，所以这里补一份完整主题 */\n.fc-mask {\n  --fc-bg: #ffffff;\n  --fc-soft: #f6f7f9;\n  --fc-soft-2: #eef0f3;\n  --fc-line: #ecedf0;\n  --fc-line-strong: #dcdee3;\n  --fc-ink: #1b1c1f;\n  --fc-ink-2: #55585e;\n  --fc-muted: #8b9099;\n  --fc-accent: #1b1c1f;\n  --fc-on-accent: #ffffff;\n  --fc-warn: #c0392b;\n  --fc-ok: #2f9e44;\n  --fc-r-lg: 18px;\n  --fc-r-md: 12px;\n  --fc-r-sm: 8px;\n  --fc-r-full: 999px;\n  --fc-shadow: 0 18px 50px rgba(17, 18, 20, 0.18);\n  --fc-font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;\n  --fc-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;\n\n  position: fixed;\n  inset: 0;\n  background: rgba(18, 19, 22, 0.38);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 24px;\n  z-index: 2147483000;\n  animation: fc-fade .15s ease;\n  font-family: var(--fc-font);\n}\n\n@keyframes fc-fade { from { opacity: 0; } to { opacity: 1; } }\n\n.fc-dialog {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n  max-width: 330px;\n  max-height: 82vh;\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  border-radius: 20px;\n  padding: 20px 18px 16px;\n  box-shadow: var(--fc-shadow);\n  font-family: var(--fc-font);\n  animation: fc-pop .16s ease;\n}\n\n@keyframes fc-pop { from { transform: translateY(6px) scale(.98); opacity: .6; } to { transform: none; opacity: 1; } }\n\n.fc-dialog__title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }\n.fc-dialog__body {\n  min-height: 0;\n  overflow-y: auto;\n  -webkit-overflow-scrolling: touch;\n  font-size: 13.5px;\n  color: var(--fc-ink-2);\n  line-height: 1.7;\n}\n.fc-dialog__label {\n  margin: 10px 0 6px;\n  font-size: 11.5px;\n  color: var(--fc-muted);\n}\n.fc-dialog__label:first-child { margin-top: 0; }\n.fc-dialog__actions { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }\n.fc-dialog__actions .fc-btn { flex: 1 1 0; min-width: 72px; }\n\n/* 弹层内的输入框 */\n.fc-input {\n  width: 100%;\n  min-height: 40px;\n  padding: 8px 12px;\n  border: 1px solid var(--fc-line-strong);\n  border-radius: var(--fc-r-sm);\n  background: var(--fc-soft);\n  color: var(--fc-ink);\n  font: 400 14px/1.5 var(--fc-font);\n  outline: none;\n  -webkit-appearance: none;\n}\n.fc-input:focus { border-color: var(--fc-ink-2); background: var(--fc-bg); }\n.fc-input::placeholder { color: var(--fc-muted); }\n.fc-input[disabled] { opacity: .5; }\n\n/* ---------- misc ---------- */\n\n.fc-hint { font-size: 12px; color: var(--fc-muted); line-height: 1.7; margin-top: 8px; }\n.fc-tag {\n  display: inline-block;\n  padding: 2px 8px;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-soft-2);\n  color: var(--fc-ink-2);\n  font-size: 11px;\n}\n';
+  var base_default = '/* 基础布局与通用控件：所有选择器都以 .fc-root 开头 */\n\n.fc-root {\n  position: relative; /* 锁房间遮罩相对根容器定位，不用 position: fixed */\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n  height: 100%;\n  min-width: 0;\n  min-height: 0;\n  overflow: hidden;\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  font-family: var(--fc-font);\n  font-size: 14px;\n  line-height: 1.55;\n  -webkit-font-smoothing: antialiased;\n}\n\n.fc-root [hidden] { display: none !important; }\n\n/* 编辑输入框时让出键盘空间 */\n.fc-root--editing .fc-dock { display: none; }\n\n.fc-root *,\n.fc-root *::before,\n.fc-root *::after { box-sizing: border-box; }\n\n.fc-root h1,\n.fc-root h2,\n.fc-root h3,\n.fc-root p { margin: 0; }\n\n.fc-main {\n  flex: 1 1 auto;\n  min-height: 0;\n  overflow-y: auto;\n  overflow-x: hidden;\n  -webkit-overflow-scrolling: touch;\n}\n\n.fc-page {\n  padding: 18px 18px 28px;\n  min-height: 100%;\n}\n\n/* ---------- header ---------- */\n\n.fc-header {\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  gap: 12px;\n  padding: 4px 0 16px;\n}\n\n.fc-header__title {\n  font-size: 20px;\n  font-weight: 600;\n  letter-spacing: 0.2px;\n}\n\n.fc-header__sub {\n  margin-top: 3px;\n  font-size: 12.5px;\n  color: var(--fc-muted);\n}\n\n/* ---------- card ---------- */\n\n.fc-card {\n  background: var(--fc-bg);\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-lg);\n  padding: 16px;\n  margin-bottom: 12px;\n}\n\n.fc-card--soft { background: var(--fc-soft); border-color: transparent; }\n\n.fc-card__title {\n  font-size: 13px;\n  font-weight: 600;\n  color: var(--fc-ink-2);\n  margin-bottom: 10px;\n}\n\n/* ---------- buttons ---------- */\n\n.fc-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 6px;\n  min-height: 38px;\n  padding: 0 16px;\n  border: 1px solid var(--fc-line-strong);\n  border-radius: var(--fc-r-full);\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  font: 500 13.5px/1 var(--fc-font);\n  cursor: pointer;\n  transition: transform .08s ease, background .15s ease, opacity .15s ease;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-btn:active { transform: scale(0.97); }\n.fc-btn[disabled] { opacity: .4; pointer-events: none; }\n\n.fc-btn--primary {\n  background: var(--fc-accent);\n  border-color: var(--fc-accent);\n  color: var(--fc-on-accent);\n}\n\n.fc-btn--ghost { background: transparent; border-color: transparent; color: var(--fc-ink-2); }\n.fc-btn--danger { color: var(--fc-warn); border-color: var(--fc-line-strong); }\n.fc-btn--block { display: flex; width: 100%; }\n.fc-btn--lg { min-height: 48px; padding: 0 30px; font-size: 15px; }\n\n.fc-icon { display: inline-flex; width: 18px; height: 18px; }\n.fc-icon svg { width: 100%; height: 100%; }\n\n/* 关闭按钮：宿主不提供，由插件自带 */\n.fc-close {\n  flex: 0 0 auto;\n  width: 32px;\n  height: 32px;\n  border-radius: 50%;\n  border: 1px solid var(--fc-line);\n  background: transparent;\n  color: var(--fc-ink-2);\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-close:active { background: var(--fc-soft); }\n.fc-close .fc-icon { width: 14px; height: 14px; }\n\n/* ---------- dock ---------- */\n\n.fc-dock {\n  flex: 0 0 auto;\n  display: flex;\n  border-top: 1px solid var(--fc-line);\n  background: var(--fc-bg);\n  padding: 6px 8px 8px;\n}\n\n.fc-dock__item {\n  flex: 1 1 0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 3px;\n  padding: 6px 0 2px;\n  border: 0;\n  background: transparent;\n  color: var(--fc-muted);\n  font: 500 10.5px/1.2 var(--fc-font);\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-dock__item .fc-icon { width: 21px; height: 21px; }\n.fc-dock__item[aria-selected="true"] { color: var(--fc-ink); }\n\n/* ---------- tiles ---------- */\n\n.fc-tiles {\n  display: grid;\n  grid-template-columns: repeat(3, minmax(0, 1fr));\n  gap: 8px;\n  margin-bottom: 12px;\n}\n\n.fc-tile {\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-md);\n  padding: 12px 10px;\n}\n\n.fc-tile__label { font-size: 11.5px; color: var(--fc-muted); }\n.fc-tile__value { font-size: 17px; font-weight: 600; margin-top: 4px; letter-spacing: .2px; }\n.fc-tile__sub { font-size: 10.5px; color: var(--fc-muted); margin-top: 2px; }\n\n/* ---------- list ---------- */\n\n.fc-list { border: 1px solid var(--fc-line); border-radius: var(--fc-r-md); overflow: hidden; }\n\n.fc-row {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 13px 14px;\n  border-bottom: 1px solid var(--fc-line);\n  background: var(--fc-bg);\n}\n\n.fc-row:last-child { border-bottom: 0; }\n.fc-row--tap { cursor: pointer; }\n.fc-row--tap:active { background: var(--fc-soft); }\n\n.fc-row__main { flex: 1 1 auto; min-width: 0; }\n.fc-row__title { font-size: 14px; }\n.fc-row__sub { font-size: 11.5px; color: var(--fc-muted); margin-top: 2px; }\n.fc-row__value { font-size: 14px; font-variant-numeric: tabular-nums; }\n.fc-row__action { color: var(--fc-muted); font-size: 12px; }\n\n/* ---------- empty / loading ---------- */\n\n.fc-empty {\n  padding: 40px 18px;\n  text-align: center;\n  color: var(--fc-muted);\n}\n\n.fc-empty__title { font-size: 14px; color: var(--fc-ink-2); margin-bottom: 6px; }\n.fc-empty__desc { font-size: 12.5px; line-height: 1.7; }\n\n.fc-loading {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 10px;\n  padding: 60px 0;\n  color: var(--fc-muted);\n  font-size: 13px;\n}\n\n.fc-loading__dot {\n  width: 14px;\n  height: 14px;\n  border: 2px solid var(--fc-line-strong);\n  border-top-color: var(--fc-ink);\n  border-radius: 50%;\n  animation: fc-spin .8s linear infinite;\n}\n\n@keyframes fc-spin { to { transform: rotate(360deg); } }\n\n/* ---------- dialog ---------- */\n\n/* 弹层挂在 body 上，拿不到 .fc-root 的变量，所以这里补一份完整主题 */\n.fc-mask {\n  --fc-bg: #ffffff;\n  --fc-soft: #f6f7f9;\n  --fc-soft-2: #eef0f3;\n  --fc-line: #ecedf0;\n  --fc-line-strong: #dcdee3;\n  --fc-ink: #1b1c1f;\n  --fc-ink-2: #55585e;\n  --fc-muted: #8b9099;\n  --fc-accent: #1b1c1f;\n  --fc-on-accent: #ffffff;\n  --fc-warn: #c0392b;\n  --fc-ok: #2f9e44;\n  --fc-r-lg: 18px;\n  --fc-r-md: 12px;\n  --fc-r-sm: 8px;\n  --fc-r-full: 999px;\n  --fc-shadow: 0 18px 50px rgba(17, 18, 20, 0.18);\n  --fc-font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;\n  --fc-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;\n\n  position: fixed;\n  inset: 0;\n  background: rgba(18, 19, 22, 0.38);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 24px;\n  z-index: 2147483000;\n  animation: fc-fade .15s ease;\n  font-family: var(--fc-font);\n}\n\n@keyframes fc-fade { from { opacity: 0; } to { opacity: 1; } }\n\n.fc-dialog {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n  max-width: 330px;\n  max-height: 82vh;\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  border-radius: 20px;\n  padding: 20px 18px 16px;\n  box-shadow: var(--fc-shadow);\n  font-family: var(--fc-font);\n  animation: fc-pop .16s ease;\n}\n\n@keyframes fc-pop { from { transform: translateY(6px) scale(.98); opacity: .6; } to { transform: none; opacity: 1; } }\n\n.fc-dialog__title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }\n.fc-dialog__body {\n  min-height: 0;\n  overflow-y: auto;\n  -webkit-overflow-scrolling: touch;\n  font-size: 13.5px;\n  color: var(--fc-ink-2);\n  line-height: 1.7;\n}\n.fc-dialog__label {\n  margin: 10px 0 6px;\n  font-size: 11.5px;\n  color: var(--fc-muted);\n}\n.fc-dialog__label:first-child { margin-top: 0; }\n.fc-dialog__actions { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }\n.fc-dialog__actions .fc-btn { flex: 1 1 0; min-width: 72px; }\n\n/* 弹层内的输入框 */\n.fc-input {\n  width: 100%;\n  min-height: 40px;\n  padding: 8px 12px;\n  border: 1px solid var(--fc-line-strong);\n  border-radius: var(--fc-r-sm);\n  background: var(--fc-soft);\n  color: var(--fc-ink);\n  font: 400 14px/1.5 var(--fc-font);\n  outline: none;\n  -webkit-appearance: none;\n}\n.fc-input:focus { border-color: var(--fc-ink-2); background: var(--fc-bg); }\n.fc-input::placeholder { color: var(--fc-muted); }\n.fc-input[disabled] { opacity: .5; }\n\n/* ---------- misc ---------- */\n\n.fc-hint { font-size: 12px; color: var(--fc-muted); line-height: 1.7; margin-top: 8px; }\n.fc-tag {\n  display: inline-block;\n  padding: 2px 8px;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-soft-2);\n  color: var(--fc-ink-2);\n  font-size: 11px;\n}\n';
 
   // src/ui/views.css
-  var views_default = '/* 页面级样式 */\n\n/* ---------- 专注页 ---------- */\n\n.fc-focus {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding-top: 6px;\n}\n\n.fc-focus__head {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 18px;\n}\n\n.fc-focus__mode { font-size: 13px; color: var(--fc-muted); }\n.fc-focus__right { display: flex; align-items: center; gap: 10px; }\n\n.fc-dots { display: flex; gap: 6px; }\n.fc-dots__dot {\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  background: var(--fc-line-strong);\n}\n.fc-dots__dot.is-done { background: var(--fc-ink); }\n.fc-dots__dot.is-active { box-shadow: 0 0 0 3px var(--fc-soft-2); background: var(--fc-ink); }\n\n.fc-ring {\n  position: relative;\n  width: 268px;\n  height: 268px;\n  margin: 4px 0 10px;\n}\n\n.fc-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }\n.fc-ring__track { stroke: var(--fc-soft-2); }\n.fc-ring__bar {\n  stroke: var(--fc-ink);\n  transition: stroke-dashoffset .35s linear;\n}\n\n.fc-ring__center {\n  position: absolute;\n  inset: 0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  gap: 4px;\n}\n\n.fc-ring__time {\n  font-size: 46px;\n  font-weight: 300;\n  letter-spacing: 1px;\n  font-variant-numeric: tabular-nums;\n  font-family: var(--fc-mono);\n}\n\n.fc-ring__phase { font-size: 12.5px; color: var(--fc-muted); letter-spacing: .08em; }\n.fc-ring__bonus { font-size: 11.5px; color: var(--fc-ink-2); }\n\n.fc-controls {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  margin: 14px 0 18px;\n}\n\n.fc-controls__side {\n  width: 44px;\n  height: 44px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border: 1px solid var(--fc-line-strong);\n  border-radius: 50%;\n  background: var(--fc-bg);\n  color: var(--fc-ink-2);\n  cursor: pointer;\n}\n\n.fc-controls__side[disabled] { opacity: .35; pointer-events: none; }\n.fc-controls__side .fc-icon { width: 17px; height: 17px; }\n\n.fc-focus__today {\n  display: flex;\n  gap: 20px;\n  padding: 12px 22px;\n  border-radius: var(--fc-r-lg);\n  background: var(--fc-soft);\n  font-size: 12px;\n  color: var(--fc-ink-2);\n}\n\n.fc-focus__today b { font-weight: 600; font-variant-numeric: tabular-nums; }\n\n.fc-focus__note {\n  margin-top: 16px;\n  font-size: 11.5px;\n  color: var(--fc-muted);\n  text-align: center;\n  line-height: 1.7;\n}\n\n/* ---------- 统计页 ---------- */\n\n.fc-cal { border: 1px solid var(--fc-line); border-radius: var(--fc-r-md); padding: 12px; }\n\n.fc-cal__head {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 10px;\n}\n\n.fc-cal__month { font-size: 14px; font-weight: 600; }\n\n.fc-cal__nav {\n  width: 30px;\n  height: 30px;\n  border: 0;\n  background: transparent;\n  color: var(--fc-ink-2);\n  cursor: pointer;\n  border-radius: 50%;\n}\n.fc-cal__nav:active { background: var(--fc-soft); }\n.fc-cal__nav[disabled] { opacity: .3; pointer-events: none; }\n\n.fc-cal__week,\n.fc-cal__grid {\n  display: grid;\n  grid-template-columns: repeat(7, minmax(0, 1fr));\n  gap: 4px;\n}\n\n.fc-cal__weekday {\n  text-align: center;\n  font-size: 10.5px;\n  color: var(--fc-muted);\n  padding-bottom: 4px;\n}\n\n.fc-day {\n  aspect-ratio: 1 / 1;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  gap: 3px;\n  border-radius: 8px;\n  font-size: 12px;\n  color: var(--fc-ink-2);\n  background: var(--fc-heat-0);\n  border: 0;\n  cursor: pointer;\n  position: relative;\n}\n\n.fc-day--out { background: transparent; color: var(--fc-line-strong); cursor: default; }\n.fc-day--h1 { background: var(--fc-heat-1); }\n.fc-day--h2 { background: var(--fc-heat-2); }\n.fc-day--h3 { background: var(--fc-heat-3); color: #fff; }\n.fc-day--h4 { background: var(--fc-heat-4); color: #fff; }\n.fc-day--today { box-shadow: inset 0 0 0 1.5px var(--fc-ink); }\n.fc-day__dot {\n  width: 3px;\n  height: 3px;\n  border-radius: 50%;\n  background: currentColor;\n  opacity: .55;\n}\n\n.fc-cal__legend {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  justify-content: flex-end;\n  margin-top: 10px;\n  font-size: 10.5px;\n  color: var(--fc-muted);\n}\n\n.fc-cal__legend i {\n  width: 10px;\n  height: 10px;\n  border-radius: 3px;\n  display: inline-block;\n}\n\n/* ---------- 历史页 ---------- */\n\n.fc-hist__group { margin-bottom: 14px; }\n\n.fc-hist__date {\n  display: flex;\n  align-items: baseline;\n  justify-content: space-between;\n  padding: 0 2px 6px;\n  font-size: 12px;\n  color: var(--fc-muted);\n}\n\n.fc-hist__dur { font-weight: 600; color: var(--fc-ink-2); }\n\n.fc-hist__badge {\n  display: inline-block;\n  margin-left: 6px;\n  padding: 1px 6px;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-soft-2);\n  color: var(--fc-muted);\n  font-size: 10px;\n}\n\n.fc-hist__badge--abort { background: #fdecea; color: #b03a2e; }\n\n/* ---------- 设置页 ---------- */\n\n.fc-group { margin-bottom: 16px; }\n\n.fc-group__title {\n  font-size: 11.5px;\n  letter-spacing: .06em;\n  color: var(--fc-muted);\n  padding: 0 4px 6px;\n  text-transform: uppercase;\n}\n\n.fc-stepper { display: flex; align-items: center; gap: 10px; }\n\n.fc-stepper__btn {\n  width: 28px;\n  height: 28px;\n  border-radius: 50%;\n  border: 1px solid var(--fc-line-strong);\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  font-size: 15px;\n  line-height: 1;\n  cursor: pointer;\n}\n.fc-stepper__btn:active { background: var(--fc-soft); }\n.fc-stepper__btn[disabled] { opacity: .3; pointer-events: none; }\n\n.fc-stepper__value {\n  min-width: 46px;\n  text-align: right;\n  font-variant-numeric: tabular-nums;\n  font-size: 13.5px;\n}\n\n.fc-switch {\n  position: relative;\n  width: 42px;\n  height: 25px;\n  border-radius: var(--fc-r-full);\n  border: 0;\n  background: var(--fc-line-strong);\n  cursor: pointer;\n  transition: background .18s ease;\n  flex: 0 0 auto;\n}\n.fc-switch::after {\n  content: "";\n  position: absolute;\n  top: 2.5px;\n  left: 2.5px;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  background: #fff;\n  transition: transform .18s ease;\n  box-shadow: 0 1px 3px rgba(0,0,0,.2);\n}\n.fc-switch[aria-checked="true"] { background: var(--fc-accent); }\n.fc-switch[aria-checked="true"]::after { transform: translateX(17px); }\n\n.fc-about { font-size: 12px; color: var(--fc-muted); line-height: 1.8; }\n.fc-about code { font-family: var(--fc-mono); font-size: 11px; }\n\n.fc-row--off { opacity: .5; }\n.fc-row__sub--warn { color: var(--fc-warn); }\n\n/* ---------- 模式选择 ---------- */\n\n.fc-modes {\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n  padding: 12px;\n  border-bottom: 1px solid var(--fc-line);\n}\n\n.fc-mode {\n  text-align: left;\n  padding: 11px 13px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-md);\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  font: 400 13px/1.55 var(--fc-font);\n  cursor: pointer;\n  transition: border-color .15s ease, background .15s ease;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-mode.is-active { border-color: var(--fc-accent); background: var(--fc-soft); }\n.fc-mode[disabled] { opacity: .5; cursor: default; }\n.fc-mode:not([disabled]):active { background: var(--fc-soft); }\n\n.fc-mode__head { display: flex; align-items: center; gap: 8px; }\n\n.fc-mode__code {\n  flex: 0 0 auto;\n  padding: 0 5px;\n  border: 1px solid var(--fc-line-strong);\n  border-radius: 6px;\n  font-family: var(--fc-mono);\n  font-size: 10.5px;\n  color: var(--fc-muted);\n}\n\n.fc-mode__name { font-size: 13.5px; font-weight: 600; }\n.fc-mode__tick { margin-left: auto; font-size: 11px; color: var(--fc-ink-2); }\n\n.fc-mode__desc {\n  margin-top: 5px;\n  font-size: 11.5px;\n  color: var(--fc-muted);\n  line-height: 1.65;\n}\n\n/* ---------- 角色监督 ---------- */\n\n.fc-supervise {\n  width: 100%;\n  margin-top: 14px;\n  padding: 13px 14px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-lg);\n}\n\n.fc-supervise__head { display: flex; align-items: center; gap: 8px; }\n.fc-supervise__name { font-size: 13px; font-weight: 600; }\n\n.fc-badge {\n  padding: 1px 8px;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-soft-2);\n  color: var(--fc-ink-2);\n  font-size: 11px;\n  font-variant-numeric: tabular-nums;\n}\n\n.fc-badge--mute { background: #fdecea; color: #b03a2e; }\n\n.fc-supervise__line {\n  margin-top: 8px;\n  font-size: 12.5px;\n  color: var(--fc-ink-2);\n  line-height: 1.7;\n}\n\n.fc-supervise__line.is-warn { color: var(--fc-warn); }\n\n.fc-supervise__actions {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 8px;\n  margin-top: 10px;\n}\n\n.fc-mini {\n  display: inline-flex;\n  align-items: center;\n  gap: 6px;\n  min-height: 32px;\n  padding: 0 12px;\n  border: 1px solid var(--fc-line-strong);\n  border-radius: var(--fc-r-full);\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  font: 500 12px/1 var(--fc-font);\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-mini:active { background: var(--fc-soft); }\n.fc-mini[data-authorized="false"] { color: var(--fc-muted); }\n\n.fc-mini__dot {\n  width: 5px;\n  height: 5px;\n  border-radius: 50%;\n  background: var(--fc-line-strong);\n}\n\n.fc-mini__dot.is-on { background: var(--fc-ok); }\n\n.fc-supervise__hint {\n  margin-top: 9px;\n  font-size: 11px;\n  color: var(--fc-muted);\n  line-height: 1.6;\n}\n\n/* ---------- 锁房间遮罩 ---------- */\n\n.fc-lock {\n  position: absolute;\n  inset: 0;\n  z-index: 40;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 28px;\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  animation: fc-fade .18s ease;\n}\n\n.fc-lock__inner {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n  max-width: 300px;\n  text-align: center;\n}\n\n.fc-lock__tag {\n  font-size: 10.5px;\n  letter-spacing: .16em;\n  color: var(--fc-muted);\n}\n\n.fc-lock__name { margin-top: 8px; font-size: 15px; font-weight: 600; }\n\n.fc-lock__time {\n  margin: 8px 0 4px;\n  font-family: var(--fc-mono);\n  font-size: 44px;\n  font-weight: 300;\n  font-variant-numeric: tabular-nums;\n  letter-spacing: 1px;\n}\n\n.fc-lock__hint { font-size: 12.5px; color: var(--fc-ink-2); }\n\n.fc-lock__sub {\n  margin-top: 16px;\n  font-size: 11px;\n  color: var(--fc-muted);\n  line-height: 1.7;\n}\n\n.fc-lock .fc-btn { margin-top: 18px; }\n\n/* ---------- 角色选择弹层 ---------- */\n\n.fc-pick { display: flex; flex-direction: column; gap: 8px; margin-top: 2px; }\n\n.fc-pick__item {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  padding: 10px;\n  border: 1px solid var(--fc-line);\n  border-radius: 12px;\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  text-align: left;\n  font: 400 13.5px/1.4 var(--fc-font);\n  cursor: pointer;\n}\n\n.fc-pick__item.is-active { border-color: var(--fc-ink); background: var(--fc-soft); }\n.fc-pick__item:active { background: var(--fc-soft); }\n\n.fc-pick__avatar {\n  width: 34px;\n  height: 34px;\n  flex: 0 0 auto;\n  border-radius: 50%;\n  background: var(--fc-soft-2);\n  color: var(--fc-ink-2);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 14px;\n  font-weight: 600;\n  overflow: hidden;\n}\n\n.fc-pick__avatar img { width: 100%; height: 100%; object-fit: cover; }\n.fc-pick__text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }\n.fc-pick__name { font-size: 13.5px; font-weight: 600; }\n.fc-pick__sub { font-size: 11px; color: var(--fc-muted); }\n.fc-pick__check { margin-left: auto; font-size: 11px; color: var(--fc-ink-2); }\n\n/* ---------- 设置：禁用的开关 ---------- */\n\n.fc-switch[disabled] { opacity: .45; pointer-events: none; }\n\n/* ---------- 专注页：紧凑计时环 ---------- */\n\n.fc-ring--sm {\n  width: 200px;\n  height: 200px;\n  margin: 2px 0 4px;\n}\n\n.fc-ring--sm .fc-ring__time { font-size: 36px; letter-spacing: .5px; }\n.fc-ring--sm .fc-ring__phase { font-size: 11.5px; }\n.fc-ring--sm .fc-ring__bonus { font-size: 10.5px; }\n\n/* ---------- 待办清单 ---------- */\n\n.fc-tasks {\n  width: 100%;\n  margin-top: 14px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-lg);\n  overflow: hidden;\n}\n\n.fc-tasks__head {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 12px 14px 8px;\n}\n\n.fc-tasks__title { font-size: 13px; font-weight: 600; }\n.fc-tasks__count { font-size: 11.5px; color: var(--fc-muted); }\n\n.fc-tasks__add {\n  display: flex;\n  gap: 8px;\n  padding: 0 12px 10px;\n}\n\n.fc-tasks__input { flex: 1 1 auto; min-height: 36px; font-size: 13px; }\n\n.fc-tasks__addbtn {\n  width: 36px;\n  height: 36px;\n  flex: 0 0 auto;\n  border-radius: 50%;\n  border: 1px solid var(--fc-line-strong);\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  font-size: 18px;\n  line-height: 1;\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-tasks__addbtn:active { background: var(--fc-soft); }\n\n.fc-task-list { border-top: 1px solid var(--fc-line); }\n\n.fc-task {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 10px 12px;\n  border-bottom: 1px solid var(--fc-line);\n}\n\n.fc-task:last-child { border-bottom: 0; }\n.fc-task.is-active { background: var(--fc-soft); }\n\n.fc-task.is-done .fc-task__title {\n  color: var(--fc-muted);\n  text-decoration: line-through;\n}\n\n.fc-task__check {\n  width: 24px;\n  height: 24px;\n  flex: 0 0 auto;\n  padding: 0;\n  border-radius: 50%;\n  border: 1.5px solid var(--fc-line-strong);\n  background: transparent;\n  color: #fff;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-task__check.is-done { background: var(--fc-ok); border-color: var(--fc-ok); }\n.fc-task__check .fc-icon { width: 13px; height: 13px; }\n\n.fc-task__main {\n  flex: 1 1 auto;\n  min-width: 0;\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n  padding: 0;\n  border: 0;\n  background: transparent;\n  color: inherit;\n  text-align: left;\n  font: inherit;\n  cursor: pointer;\n}\n\n.fc-task__title {\n  font-size: 13.5px;\n  line-height: 1.4;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.fc-task__meta {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 10.5px;\n  color: var(--fc-muted);\n  font-variant-numeric: tabular-nums;\n}\n\n.fc-task__badge {\n  padding: 0 6px;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-soft-2);\n  color: var(--fc-ink-2);\n  font-size: 10px;\n}\n\n.fc-task__play {\n  width: 30px;\n  height: 30px;\n  flex: 0 0 auto;\n  padding: 0;\n  border-radius: 50%;\n  border: 1px solid var(--fc-line-strong);\n  background: var(--fc-bg);\n  color: var(--fc-ink-2);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n}\n\n.fc-task__play[disabled] { opacity: .3; pointer-events: none; }\n.fc-task__play .fc-icon { width: 13px; height: 13px; }\n\n.fc-tasks__empty {\n  padding: 16px 14px;\n  font-size: 12px;\n  color: var(--fc-muted);\n  line-height: 1.7;\n}\n\n/* ---------- 角色聊天 ---------- */\n\n.fc-chat {\n  width: 100%;\n  margin-top: 14px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-lg);\n  overflow: hidden;\n}\n\n.fc-chat__head {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 8px;\n  padding: 12px 14px 8px;\n}\n\n.fc-chat__title { font-size: 13px; font-weight: 600; }\n\n.fc-chat__list {\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n  max-height: 220px;\n  overflow-y: auto;\n  -webkit-overflow-scrolling: touch;\n  padding: 4px 12px 10px;\n}\n\n.fc-chat__empty {\n  padding: 12px 2px;\n  font-size: 12px;\n  color: var(--fc-muted);\n  line-height: 1.7;\n}\n\n.fc-chat__msg {\n  display: flex;\n  flex-direction: column;\n  max-width: 86%;\n}\n\n.fc-chat__msg--me { align-self: flex-end; align-items: flex-end; }\n.fc-chat__msg--char { align-self: flex-start; align-items: flex-start; }\n\n.fc-chat__bubble {\n  padding: 8px 11px;\n  border-radius: 14px;\n  font-size: 13px;\n  line-height: 1.6;\n  white-space: pre-wrap;\n  word-break: break-word;\n}\n\n.fc-chat__msg--me .fc-chat__bubble {\n  background: var(--fc-accent);\n  color: var(--fc-on-accent);\n  border-bottom-right-radius: 5px;\n}\n\n.fc-chat__msg--char .fc-chat__bubble {\n  background: var(--fc-soft);\n  color: var(--fc-ink);\n  border-bottom-left-radius: 5px;\n}\n\n.fc-chat__msg.is-failed .fc-chat__bubble { opacity: .75; font-style: italic; }\n\n.fc-chat__time { margin-top: 2px; font-size: 10px; color: var(--fc-muted); }\n\n.fc-chat__form {\n  display: flex;\n  gap: 8px;\n  padding: 8px 12px 12px;\n  border-top: 1px solid var(--fc-line);\n}\n\n.fc-chat__input { flex: 1 1 auto; min-height: 36px; font-size: 13px; }\n\n.fc-chat__send {\n  flex: 0 0 auto;\n  min-height: 38px;\n  padding: 0 14px;\n  border: 0;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-accent);\n  color: var(--fc-on-accent);\n  font: 500 13px/1 var(--fc-font);\n  cursor: pointer;\n}\n\n.fc-chat__send[disabled] { opacity: .4; pointer-events: none; }\n\n.fc-chat__hint {\n  padding: 0 12px 12px;\n  font-size: 11px;\n  color: var(--fc-muted);\n  line-height: 1.6;\n}\n\n/* ---------- 首页（目标 + 待办） ---------- */\n\n.fc-screen { width: 100%; }\n\n.fc-home { display: flex; flex-direction: column; gap: 12px; }\n\n.fc-home__head {\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  gap: 12px;\n  padding: 4px 0 2px;\n}\n\n.fc-home__title { font-size: 20px; font-weight: 600; letter-spacing: .2px; }\n.fc-home__date { margin-top: 3px; font-size: 12.5px; color: var(--fc-muted); }\n\n.fc-goal {\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-lg);\n  padding: 14px;\n}\n\n.fc-goal__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }\n.fc-goal__label { font-size: 12px; color: var(--fc-muted); }\n\n.fc-goal__nums {\n  margin-top: 4px;\n  font-size: 24px;\n  font-weight: 600;\n  letter-spacing: .3px;\n  font-variant-numeric: tabular-nums;\n}\n\n.fc-goal__nums small { font-size: 12px; font-weight: 400; color: var(--fc-muted); }\n\n.fc-goal__bar {\n  height: 6px;\n  margin-top: 12px;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-soft-2);\n  overflow: hidden;\n}\n\n.fc-goal__bar i {\n  display: block;\n  height: 100%;\n  width: 0;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-accent);\n  transition: width .3s ease;\n}\n\n.fc-goal__sub { margin-top: 8px; font-size: 11.5px; color: var(--fc-muted); }\n\n.fc-runbar {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  padding: 12px 14px;\n  border: 1px solid var(--fc-ink);\n  border-radius: 14px;\n  background: var(--fc-soft);\n  color: var(--fc-ink);\n  text-align: left;\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-runbar__dot {\n  width: 8px;\n  height: 8px;\n  flex: 0 0 auto;\n  border-radius: 50%;\n  background: var(--fc-ok);\n  animation: fc-pulse 1.6s ease-in-out infinite;\n}\n\n@keyframes fc-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }\n\n.fc-runbar__time {\n  font-family: var(--fc-mono);\n  font-size: 18px;\n  font-variant-numeric: tabular-nums;\n}\n\n.fc-runbar__task {\n  flex: 1 1 auto;\n  min-width: 0;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  font-size: 12px;\n  color: var(--fc-muted);\n}\n\n.fc-runbar__go { flex: 0 0 auto; font-size: 11.5px; color: var(--fc-ink-2); }\n\n.fc-home__free { width: 100%; }\n\n.fc-task__more {\n  width: 26px;\n  height: 26px;\n  flex: 0 0 auto;\n  padding: 0;\n  border: 0;\n  background: transparent;\n  color: var(--fc-muted);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-task__more .fc-icon { width: 14px; height: 14px; }\n\n.fc-task__done-toggle {\n  display: block;\n  width: 100%;\n  padding: 10px 14px;\n  border: 0;\n  border-top: 1px solid var(--fc-line);\n  background: transparent;\n  color: var(--fc-muted);\n  font: 500 11.5px/1 var(--fc-font);\n  text-align: left;\n  cursor: pointer;\n}\n\n.fc-task__done-toggle:active { background: var(--fc-soft); }\n\n/* ---------- 计时页 ---------- */\n\n.fc-timer { display: flex; flex-direction: column; align-items: center; }\n\n.fc-timer__head {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  margin-bottom: 10px;\n}\n\n.fc-timer__title {\n  flex: 1 1 auto;\n  min-width: 0;\n  padding: 0;\n  border: 0;\n  background: transparent;\n  color: var(--fc-ink);\n  font: 600 14px/1.4 var(--fc-font);\n  text-align: left;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  cursor: pointer;\n}\n\n.fc-iconbtn {\n  width: 34px;\n  height: 34px;\n  flex: 0 0 auto;\n  padding: 0;\n  border: 1px solid var(--fc-line);\n  border-radius: 50%;\n  background: transparent;\n  color: var(--fc-ink-2);\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-iconbtn:active { background: var(--fc-soft); }\n.fc-iconbtn[disabled] { opacity: .35; pointer-events: none; }\n.fc-iconbtn .fc-icon { width: 15px; height: 15px; }\n.fc-iconbtn--accent { border-color: var(--fc-ink); color: var(--fc-ink); }\n\n.fc-timer__meta {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  margin-bottom: 6px;\n}\n\n.fc-chip {\n  display: inline-flex;\n  align-items: center;\n  padding: 5px 10px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-full);\n  background: transparent;\n  color: var(--fc-ink-2);\n  font: 500 11.5px/1 var(--fc-font);\n  cursor: pointer;\n}\n\n.fc-timer__char { font-size: 11.5px; color: var(--fc-muted); }\n\n.fc-timer__actions { display: flex; gap: 10px; margin: 10px 0 4px; }\n.fc-timer__actions .fc-btn { min-height: 34px; font-size: 12.5px; }\n\n/* ---------- 聊天页 ---------- */\n\n.fc-page--fill {\n  display: flex;\n  flex-direction: column;\n  min-height: 100%;\n  padding-bottom: 0;\n}\n\n.fc-page--fill .fc-screen {\n  display: flex;\n  flex-direction: column;\n  flex: 1 1 auto;\n  min-height: 0;\n}\n\n.fc-chat-screen {\n  display: flex;\n  flex-direction: column;\n  flex: 1 1 auto;\n  min-height: 0;\n}\n\n.fc-chat-screen__head {\n  flex: 0 0 auto;\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 2px 0 10px;\n  border-bottom: 1px solid var(--fc-line);\n}\n\n.fc-chat-screen__titles {\n  flex: 1 1 auto;\n  min-width: 0;\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n}\n\n.fc-chat-screen__name {\n  font-size: 14px;\n  font-weight: 600;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.fc-chat-screen__status { font-size: 11px; color: var(--fc-muted); }\n\n.fc-chat-screen__list {\n  flex: 1 1 auto;\n  min-height: 0;\n  overflow-y: auto;\n  -webkit-overflow-scrolling: touch;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n  padding: 12px 2px;\n}\n\n.fc-chat-screen__foot {\n  flex: 0 0 auto;\n  padding-top: 8px;\n  border-top: 1px solid var(--fc-line);\n}\n\n.fc-chat-screen__foot .fc-chat__form { border-top: 0; padding: 8px 0 10px; }\n.fc-chat-screen__foot .fc-chat__hint { padding: 0 0 6px; }\n\n.fc-chat__send--icon {\n  width: 40px;\n  min-width: 40px;\n  height: 40px;\n  min-height: 40px;\n  padding: 0;\n  border-radius: 50%;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.fc-chat__send--icon .fc-icon { width: 18px; height: 18px; }\n\n.fc-dialog .fc-modes { padding: 0; border-bottom: 0; }\n\n/* ---------- 聊天设置：提示词 / 兜底 / 控制台 ---------- */\n\n.fc-chat-settings { display: flex; flex-direction: column; }\n.fc-chat-settings .fc-group { margin-bottom: 16px; }\n\n.fc-chat__bubble--edit { cursor: pointer; }\n.fc-chat__bubble--edit:active { opacity: .8; }\n\n.fc-textarea-msg { min-height: 110px; margin-top: 8px; }\n\n.fc-console__box { padding: 12px 14px; }\n\n.fc-console__tabs {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  margin-bottom: 10px;\n  flex-wrap: wrap;\n}\n\n.fc-console__tab {\n  padding: 5px 10px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-full);\n  background: transparent;\n  color: var(--fc-muted);\n  font: 500 11.5px/1 var(--fc-font);\n  cursor: pointer;\n}\n\n.fc-console__tab.is-active {\n  border-color: var(--fc-ink);\n  color: var(--fc-ink);\n  background: var(--fc-soft);\n}\n\n.fc-console__spacer { flex: 1 1 auto; }\n\n.fc-console__copy {\n  padding: 5px 10px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-full);\n  background: transparent;\n  color: var(--fc-ink-2);\n  font: 500 11px/1 var(--fc-font);\n  cursor: pointer;\n}\n\n.fc-console {\n  max-height: 240px;\n  overflow: auto;\n  margin: 0;\n  padding: 10px 12px;\n  border: 1px solid var(--fc-line);\n  border-radius: 10px;\n  background: var(--fc-soft);\n  color: var(--fc-ink-2);\n  font: 11px/1.65 var(--fc-mono);\n  white-space: pre-wrap;\n  word-break: break-word;\n}\n\n.fc-console__stats {\n  margin-top: 8px;\n  font-size: 10.5px;\n  color: var(--fc-muted);\n  font-variant-numeric: tabular-nums;\n}\n\n/* 开始进入哪一屏 */\n.fc-seg {\n  display: inline-flex;\n  flex: 0 0 auto;\n  padding: 2px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-full);\n  background: var(--fc-soft);\n}\n\n.fc-seg__btn {\n  padding: 6px 10px;\n  border: 0;\n  border-radius: var(--fc-r-full);\n  background: transparent;\n  color: var(--fc-muted);\n  font: 500 11.5px/1 var(--fc-font);\n  cursor: pointer;\n}\n\n.fc-seg__btn.is-active {\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  box-shadow: 0 1px 3px rgba(0, 0, 0, .08);\n}\n\n/* 可点击插入的占位符 */\n.fc-prompt__chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 6px;\n  margin-top: 6px;\n}\n\n.fc-chip--ins {\n  padding: 3px 8px;\n  border: 1px solid var(--fc-line);\n  background: var(--fc-soft);\n  color: var(--fc-ink-2);\n  font-family: var(--fc-mono);\n  font-size: 10.5px;\n  cursor: pointer;\n}\n\n.fc-chip--ins:active { background: var(--fc-soft-2); }\n\n/* 计时页聊天入口的未读数 */\n.fc-timer__chat { display: inline-flex; align-items: center; gap: 6px; }\n\n.fc-badge--unread {\n  min-width: 16px;\n  padding: 0 4px;\n  background: var(--fc-warn);\n  color: #fff;\n  text-align: center;\n  font-size: 10px;\n  line-height: 16px;\n}\n\n/* ---------- 提示词编辑 ---------- */\n\n.fc-textarea {\n  width: 100%;\n  min-height: 120px;\n  padding: 10px 12px;\n  border: 1px solid var(--fc-line-strong);\n  border-radius: var(--fc-r-md);\n  background: var(--fc-soft);\n  color: var(--fc-ink);\n  font: 400 12.5px/1.7 var(--fc-font);\n  outline: none;\n  resize: vertical;\n  -webkit-appearance: none;\n}\n\n.fc-textarea:focus { border-color: var(--fc-ink-2); background: var(--fc-bg); }\n\n.fc-prompt { padding: 12px 14px; border-bottom: 1px solid var(--fc-line); }\n.fc-prompt:last-child { border-bottom: 0; }\n.fc-prompt__head {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 10px;\n  margin-bottom: 8px;\n}\n.fc-prompt__title { font-size: 13.5px; }\n.fc-prompt__vars {\n  margin-top: 6px;\n  font-size: 10.5px;\n  color: var(--fc-muted);\n  line-height: 1.7;\n  font-family: var(--fc-mono);\n}\n';
+  var views_default = '/* 页面级样式 */\n\n/* ---------- 专注页 ---------- */\n\n.fc-focus {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding-top: 6px;\n}\n\n.fc-focus__head {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 18px;\n}\n\n.fc-focus__mode { font-size: 13px; color: var(--fc-muted); }\n.fc-focus__right { display: flex; align-items: center; gap: 10px; }\n\n.fc-dots { display: flex; gap: 6px; }\n.fc-dots__dot {\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  background: var(--fc-line-strong);\n}\n.fc-dots__dot.is-done { background: var(--fc-ink); }\n.fc-dots__dot.is-active { box-shadow: 0 0 0 3px var(--fc-soft-2); background: var(--fc-ink); }\n\n.fc-ring {\n  position: relative;\n  width: 268px;\n  height: 268px;\n  margin: 4px 0 10px;\n}\n\n.fc-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }\n.fc-ring__track { stroke: var(--fc-soft-2); }\n.fc-ring__bar {\n  stroke: var(--fc-ink);\n  transition: stroke-dashoffset .35s linear;\n}\n\n.fc-ring__center {\n  position: absolute;\n  inset: 0;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  gap: 4px;\n}\n\n.fc-ring__time {\n  font-size: 46px;\n  font-weight: 300;\n  letter-spacing: 1px;\n  font-variant-numeric: tabular-nums;\n  font-family: var(--fc-mono);\n}\n\n.fc-ring__phase { font-size: 12.5px; color: var(--fc-muted); letter-spacing: .08em; }\n.fc-ring__bonus { font-size: 11.5px; color: var(--fc-ink-2); }\n\n.fc-controls {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  margin: 14px 0 18px;\n}\n\n.fc-controls__side {\n  width: 44px;\n  height: 44px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border: 1px solid var(--fc-line-strong);\n  border-radius: 50%;\n  background: var(--fc-bg);\n  color: var(--fc-ink-2);\n  cursor: pointer;\n}\n\n.fc-controls__side[disabled] { opacity: .35; pointer-events: none; }\n.fc-controls__side .fc-icon { width: 17px; height: 17px; }\n\n.fc-focus__today {\n  display: flex;\n  gap: 20px;\n  padding: 12px 22px;\n  border-radius: var(--fc-r-lg);\n  background: var(--fc-soft);\n  font-size: 12px;\n  color: var(--fc-ink-2);\n}\n\n.fc-focus__today b { font-weight: 600; font-variant-numeric: tabular-nums; }\n\n.fc-focus__note {\n  margin-top: 16px;\n  font-size: 11.5px;\n  color: var(--fc-muted);\n  text-align: center;\n  line-height: 1.7;\n}\n\n/* ---------- 统计页 ---------- */\n\n.fc-cal { border: 1px solid var(--fc-line); border-radius: var(--fc-r-md); padding: 12px; }\n\n.fc-cal__head {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 10px;\n}\n\n.fc-cal__month { font-size: 14px; font-weight: 600; }\n\n.fc-cal__nav {\n  width: 30px;\n  height: 30px;\n  border: 0;\n  background: transparent;\n  color: var(--fc-ink-2);\n  cursor: pointer;\n  border-radius: 50%;\n}\n.fc-cal__nav:active { background: var(--fc-soft); }\n.fc-cal__nav[disabled] { opacity: .3; pointer-events: none; }\n\n.fc-cal__week,\n.fc-cal__grid {\n  display: grid;\n  grid-template-columns: repeat(7, minmax(0, 1fr));\n  gap: 4px;\n}\n\n.fc-cal__weekday {\n  text-align: center;\n  font-size: 10.5px;\n  color: var(--fc-muted);\n  padding-bottom: 4px;\n}\n\n.fc-day {\n  aspect-ratio: 1 / 1;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  gap: 3px;\n  border-radius: 8px;\n  font-size: 12px;\n  color: var(--fc-ink-2);\n  background: var(--fc-heat-0);\n  border: 0;\n  cursor: pointer;\n  position: relative;\n}\n\n.fc-day--out { background: transparent; color: var(--fc-line-strong); cursor: default; }\n.fc-day--h1 { background: var(--fc-heat-1); }\n.fc-day--h2 { background: var(--fc-heat-2); }\n.fc-day--h3 { background: var(--fc-heat-3); color: #fff; }\n.fc-day--h4 { background: var(--fc-heat-4); color: #fff; }\n.fc-day--today { box-shadow: inset 0 0 0 1.5px var(--fc-ink); }\n.fc-day__dot {\n  width: 3px;\n  height: 3px;\n  border-radius: 50%;\n  background: currentColor;\n  opacity: .55;\n}\n\n.fc-cal__legend {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  justify-content: flex-end;\n  margin-top: 10px;\n  font-size: 10.5px;\n  color: var(--fc-muted);\n}\n\n.fc-cal__legend i {\n  width: 10px;\n  height: 10px;\n  border-radius: 3px;\n  display: inline-block;\n}\n\n/* ---------- 历史徽标（统计页复用） ---------- */\n\n.fc-hist__badge {\n  display: inline-block;\n  margin-left: 6px;\n  padding: 1px 6px;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-soft-2);\n  color: var(--fc-muted);\n  font-size: 10px;\n}\n\n.fc-hist__badge--abort { background: #fdecea; color: #b03a2e; }\n\n/* ---------- 统计页：当天记录 ---------- */\n\n.fc-dayview { margin-top: 16px; }\n\n.fc-dayview__head {\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  gap: 10px;\n  padding: 0 2px 8px;\n}\n\n.fc-dayview__title { font-size: 13.5px; font-weight: 600; }\n.fc-dayview__sub { margin-top: 2px; font-size: 11.5px; color: var(--fc-muted); }\n.fc-dayview__today { flex: 0 0 auto; min-height: 30px; padding: 0 10px; font-size: 11.5px; }\n\n.fc-day--selected { box-shadow: inset 0 0 0 2px var(--fc-ink); }\n\n/* ---------- 便签墙 ---------- */\n\n.fc-header__actions { display: flex; align-items: center; gap: 8px; }\n\n.fc-notes__bar {\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n  margin-bottom: 12px;\n}\n\n.fc-filter { display: flex; flex-wrap: wrap; gap: 6px; }\n\n.fc-filter__btn {\n  padding: 6px 10px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-full);\n  background: transparent;\n  color: var(--fc-muted);\n  font: 500 11.5px/1 var(--fc-font);\n  cursor: pointer;\n}\n\n.fc-filter__btn.is-active {\n  border-color: var(--fc-ink);\n  background: var(--fc-soft);\n  color: var(--fc-ink);\n}\n\n.fc-notes__search { min-height: 38px; font-size: 13px; }\n\n.fc-notes { display: flex; flex-direction: column; gap: 10px; }\n\n.fc-notes__day {\n  padding: 6px 2px 0;\n  font-size: 11.5px;\n  color: var(--fc-muted);\n}\n\n.fc-note-card {\n  width: 100%;\n  padding: 14px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-lg);\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  text-align: left;\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-note-card:active { background: var(--fc-soft); }\n\n.fc-note-card__text {\n  font-size: 14px;\n  line-height: 1.75;\n  white-space: pre-wrap;\n  word-break: break-word;\n}\n\n.fc-note-card__meta {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  gap: 8px;\n  margin-top: 10px;\n  font-size: 10.5px;\n  color: var(--fc-muted);\n}\n\n.fc-note-card__task {\n  max-width: 150px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  padding: 1px 7px;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-soft-2);\n  color: var(--fc-ink-2);\n}\n\n.fc-note-card__badge {\n  padding: 1px 7px;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-soft);\n  color: var(--fc-ink-2);\n}\n\n/* ---------- 记录详情：便签与聊天存档 ---------- */\n\n.fc-detail-note {\n  margin-top: 12px;\n  padding: 12px;\n  border-radius: var(--fc-r-md);\n  background: var(--fc-soft);\n}\n\n.fc-detail-note__text {\n  margin-top: 6px;\n  font-size: 13.5px;\n  line-height: 1.75;\n  white-space: pre-wrap;\n  color: var(--fc-ink);\n}\n\n.fc-archive {\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n  max-height: 52vh;\n  overflow-y: auto;\n  padding: 4px 2px;\n}\n\n.fc-row--plain { border-bottom: 0; padding: 0 0 12px; }\n\n/* ---------- 设置页 ---------- */\n\n.fc-group { margin-bottom: 16px; }\n\n.fc-group__title {\n  font-size: 11.5px;\n  letter-spacing: .06em;\n  color: var(--fc-muted);\n  padding: 0 4px 6px;\n  text-transform: uppercase;\n}\n\n.fc-stepper { display: flex; align-items: center; gap: 10px; }\n\n.fc-stepper__btn {\n  width: 28px;\n  height: 28px;\n  border-radius: 50%;\n  border: 1px solid var(--fc-line-strong);\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  font-size: 15px;\n  line-height: 1;\n  cursor: pointer;\n}\n.fc-stepper__btn:active { background: var(--fc-soft); }\n.fc-stepper__btn[disabled] { opacity: .3; pointer-events: none; }\n\n.fc-stepper__value {\n  min-width: 46px;\n  text-align: right;\n  font-variant-numeric: tabular-nums;\n  font-size: 13.5px;\n}\n\n.fc-switch {\n  position: relative;\n  width: 42px;\n  height: 25px;\n  border-radius: var(--fc-r-full);\n  border: 0;\n  background: var(--fc-line-strong);\n  cursor: pointer;\n  transition: background .18s ease;\n  flex: 0 0 auto;\n}\n.fc-switch::after {\n  content: "";\n  position: absolute;\n  top: 2.5px;\n  left: 2.5px;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  background: #fff;\n  transition: transform .18s ease;\n  box-shadow: 0 1px 3px rgba(0,0,0,.2);\n}\n.fc-switch[aria-checked="true"] { background: var(--fc-accent); }\n.fc-switch[aria-checked="true"]::after { transform: translateX(17px); }\n\n.fc-about { font-size: 12px; color: var(--fc-muted); line-height: 1.8; }\n.fc-about code { font-family: var(--fc-mono); font-size: 11px; }\n\n.fc-row--off { opacity: .5; }\n.fc-row__sub--warn { color: var(--fc-warn); }\n\n/* ---------- 模式选择 ---------- */\n\n.fc-modes {\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n  padding: 12px;\n  border-bottom: 1px solid var(--fc-line);\n}\n\n.fc-mode {\n  text-align: left;\n  padding: 11px 13px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-md);\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  font: 400 13px/1.55 var(--fc-font);\n  cursor: pointer;\n  transition: border-color .15s ease, background .15s ease;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-mode.is-active { border-color: var(--fc-accent); background: var(--fc-soft); }\n.fc-mode[disabled] { opacity: .5; cursor: default; }\n.fc-mode:not([disabled]):active { background: var(--fc-soft); }\n\n.fc-mode__head { display: flex; align-items: center; gap: 8px; }\n\n.fc-mode__code {\n  flex: 0 0 auto;\n  padding: 0 5px;\n  border: 1px solid var(--fc-line-strong);\n  border-radius: 6px;\n  font-family: var(--fc-mono);\n  font-size: 10.5px;\n  color: var(--fc-muted);\n}\n\n.fc-mode__name { font-size: 13.5px; font-weight: 600; }\n.fc-mode__tick { margin-left: auto; font-size: 11px; color: var(--fc-ink-2); }\n\n.fc-mode__desc {\n  margin-top: 5px;\n  font-size: 11.5px;\n  color: var(--fc-muted);\n  line-height: 1.65;\n}\n\n/* ---------- 角色监督 ---------- */\n\n.fc-supervise {\n  width: 100%;\n  margin-top: 14px;\n  padding: 13px 14px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-lg);\n}\n\n.fc-supervise__head { display: flex; align-items: center; gap: 8px; }\n.fc-supervise__name { font-size: 13px; font-weight: 600; }\n\n.fc-badge {\n  padding: 1px 8px;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-soft-2);\n  color: var(--fc-ink-2);\n  font-size: 11px;\n  font-variant-numeric: tabular-nums;\n}\n\n.fc-badge--mute { background: #fdecea; color: #b03a2e; }\n\n.fc-supervise__line {\n  margin-top: 8px;\n  font-size: 12.5px;\n  color: var(--fc-ink-2);\n  line-height: 1.7;\n}\n\n.fc-supervise__line.is-warn { color: var(--fc-warn); }\n\n.fc-supervise__actions {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 8px;\n  margin-top: 10px;\n}\n\n.fc-mini {\n  display: inline-flex;\n  align-items: center;\n  gap: 6px;\n  min-height: 32px;\n  padding: 0 12px;\n  border: 1px solid var(--fc-line-strong);\n  border-radius: var(--fc-r-full);\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  font: 500 12px/1 var(--fc-font);\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-mini:active { background: var(--fc-soft); }\n.fc-mini[data-authorized="false"] { color: var(--fc-muted); }\n\n.fc-mini__dot {\n  width: 5px;\n  height: 5px;\n  border-radius: 50%;\n  background: var(--fc-line-strong);\n}\n\n.fc-mini__dot.is-on { background: var(--fc-ok); }\n\n.fc-supervise__hint {\n  margin-top: 9px;\n  font-size: 11px;\n  color: var(--fc-muted);\n  line-height: 1.6;\n}\n\n/* ---------- 锁房间遮罩 ---------- */\n\n.fc-lock {\n  position: absolute;\n  inset: 0;\n  z-index: 40;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 28px;\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  animation: fc-fade .18s ease;\n}\n\n.fc-lock__inner {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n  max-width: 300px;\n  text-align: center;\n}\n\n.fc-lock__tag {\n  font-size: 10.5px;\n  letter-spacing: .16em;\n  color: var(--fc-muted);\n}\n\n.fc-lock__name { margin-top: 8px; font-size: 15px; font-weight: 600; }\n\n.fc-lock__time {\n  margin: 8px 0 4px;\n  font-family: var(--fc-mono);\n  font-size: 44px;\n  font-weight: 300;\n  font-variant-numeric: tabular-nums;\n  letter-spacing: 1px;\n}\n\n.fc-lock__hint { font-size: 12.5px; color: var(--fc-ink-2); }\n\n.fc-lock__sub {\n  margin-top: 16px;\n  font-size: 11px;\n  color: var(--fc-muted);\n  line-height: 1.7;\n}\n\n.fc-lock .fc-btn { margin-top: 18px; }\n\n/* ---------- 角色选择弹层 ---------- */\n\n.fc-pick { display: flex; flex-direction: column; gap: 8px; margin-top: 2px; }\n\n.fc-pick__item {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  padding: 10px;\n  border: 1px solid var(--fc-line);\n  border-radius: 12px;\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  text-align: left;\n  font: 400 13.5px/1.4 var(--fc-font);\n  cursor: pointer;\n}\n\n.fc-pick__item.is-active { border-color: var(--fc-ink); background: var(--fc-soft); }\n.fc-pick__item:active { background: var(--fc-soft); }\n\n.fc-pick__avatar {\n  width: 34px;\n  height: 34px;\n  flex: 0 0 auto;\n  border-radius: 50%;\n  background: var(--fc-soft-2);\n  color: var(--fc-ink-2);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 14px;\n  font-weight: 600;\n  overflow: hidden;\n}\n\n.fc-pick__avatar img { width: 100%; height: 100%; object-fit: cover; }\n.fc-pick__text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }\n.fc-pick__name { font-size: 13.5px; font-weight: 600; }\n.fc-pick__sub { font-size: 11px; color: var(--fc-muted); }\n.fc-pick__check { margin-left: auto; font-size: 11px; color: var(--fc-ink-2); }\n\n/* ---------- 设置：禁用的开关 ---------- */\n\n.fc-switch[disabled] { opacity: .45; pointer-events: none; }\n\n/* ---------- 专注页：紧凑计时环 ---------- */\n\n.fc-ring--sm {\n  width: 200px;\n  height: 200px;\n  margin: 2px 0 4px;\n}\n\n.fc-ring--sm .fc-ring__time { font-size: 36px; letter-spacing: .5px; }\n.fc-ring--sm .fc-ring__phase { font-size: 11.5px; }\n.fc-ring--sm .fc-ring__bonus { font-size: 10.5px; }\n\n/* ---------- 待办清单 ---------- */\n\n.fc-tasks {\n  width: 100%;\n  margin-top: 14px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-lg);\n  overflow: hidden;\n}\n\n.fc-tasks__head {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 12px 14px 8px;\n}\n\n.fc-tasks__title { font-size: 13px; font-weight: 600; }\n.fc-tasks__count { font-size: 11.5px; color: var(--fc-muted); }\n\n.fc-tasks__add {\n  display: flex;\n  gap: 8px;\n  padding: 0 12px 10px;\n}\n\n.fc-tasks__input { flex: 1 1 auto; min-height: 36px; font-size: 13px; }\n\n.fc-tasks__addbtn {\n  width: 36px;\n  height: 36px;\n  flex: 0 0 auto;\n  border-radius: 50%;\n  border: 1px solid var(--fc-line-strong);\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  font-size: 18px;\n  line-height: 1;\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-tasks__addbtn:active { background: var(--fc-soft); }\n\n.fc-task-list { border-top: 1px solid var(--fc-line); }\n\n.fc-task {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 10px 12px;\n  border-bottom: 1px solid var(--fc-line);\n}\n\n.fc-task:last-child { border-bottom: 0; }\n.fc-task.is-active { background: var(--fc-soft); }\n\n.fc-task.is-done .fc-task__title {\n  color: var(--fc-muted);\n  text-decoration: line-through;\n}\n\n.fc-task__check {\n  width: 24px;\n  height: 24px;\n  flex: 0 0 auto;\n  padding: 0;\n  border-radius: 50%;\n  border: 1.5px solid var(--fc-line-strong);\n  background: transparent;\n  color: #fff;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-task__check.is-done { background: var(--fc-ok); border-color: var(--fc-ok); }\n.fc-task__check .fc-icon { width: 13px; height: 13px; }\n\n.fc-task__main {\n  flex: 1 1 auto;\n  min-width: 0;\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n  padding: 0;\n  border: 0;\n  background: transparent;\n  color: inherit;\n  text-align: left;\n  font: inherit;\n  cursor: pointer;\n}\n\n.fc-task__title {\n  font-size: 13.5px;\n  line-height: 1.4;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.fc-task__meta {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 10.5px;\n  color: var(--fc-muted);\n  font-variant-numeric: tabular-nums;\n}\n\n.fc-task__badge {\n  padding: 0 6px;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-soft-2);\n  color: var(--fc-ink-2);\n  font-size: 10px;\n}\n\n.fc-task__play {\n  width: 30px;\n  height: 30px;\n  flex: 0 0 auto;\n  padding: 0;\n  border-radius: 50%;\n  border: 1px solid var(--fc-line-strong);\n  background: var(--fc-bg);\n  color: var(--fc-ink-2);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n}\n\n.fc-task__play[disabled] { opacity: .3; pointer-events: none; }\n.fc-task__play .fc-icon { width: 13px; height: 13px; }\n\n.fc-tasks__empty {\n  padding: 16px 14px;\n  font-size: 12px;\n  color: var(--fc-muted);\n  line-height: 1.7;\n}\n\n/* ---------- 角色聊天 ---------- */\n\n.fc-chat {\n  width: 100%;\n  margin-top: 14px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-lg);\n  overflow: hidden;\n}\n\n.fc-chat__head {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 8px;\n  padding: 12px 14px 8px;\n}\n\n.fc-chat__title { font-size: 13px; font-weight: 600; }\n\n.fc-chat__list {\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n  max-height: 220px;\n  overflow-y: auto;\n  -webkit-overflow-scrolling: touch;\n  padding: 4px 12px 10px;\n}\n\n.fc-chat__empty {\n  padding: 12px 2px;\n  font-size: 12px;\n  color: var(--fc-muted);\n  line-height: 1.7;\n}\n\n.fc-chat__msg {\n  display: flex;\n  flex-direction: column;\n  max-width: 86%;\n}\n\n.fc-chat__msg--me { align-self: flex-end; align-items: flex-end; }\n.fc-chat__msg--char { align-self: flex-start; align-items: flex-start; }\n\n.fc-chat__bubble {\n  padding: 8px 11px;\n  border-radius: 14px;\n  font-size: 13px;\n  line-height: 1.6;\n  white-space: pre-wrap;\n  word-break: break-word;\n}\n\n.fc-chat__msg--me .fc-chat__bubble {\n  background: var(--fc-accent);\n  color: var(--fc-on-accent);\n  border-bottom-right-radius: 5px;\n}\n\n.fc-chat__msg--char .fc-chat__bubble {\n  background: var(--fc-soft);\n  color: var(--fc-ink);\n  border-bottom-left-radius: 5px;\n}\n\n.fc-chat__msg.is-failed .fc-chat__bubble { opacity: .75; font-style: italic; }\n\n.fc-chat__time { margin-top: 2px; font-size: 10px; color: var(--fc-muted); }\n\n.fc-chat__form {\n  display: flex;\n  gap: 8px;\n  padding: 8px 12px 12px;\n  border-top: 1px solid var(--fc-line);\n}\n\n.fc-chat__input { flex: 1 1 auto; min-height: 36px; font-size: 13px; }\n\n.fc-chat__send {\n  flex: 0 0 auto;\n  min-height: 38px;\n  padding: 0 14px;\n  border: 0;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-accent);\n  color: var(--fc-on-accent);\n  font: 500 13px/1 var(--fc-font);\n  cursor: pointer;\n}\n\n.fc-chat__send[disabled] { opacity: .4; pointer-events: none; }\n\n.fc-chat__hint {\n  padding: 0 12px 12px;\n  font-size: 11px;\n  color: var(--fc-muted);\n  line-height: 1.6;\n}\n\n/* ---------- 首页（目标 + 待办） ---------- */\n\n.fc-screen { width: 100%; }\n\n.fc-home { display: flex; flex-direction: column; gap: 12px; }\n\n.fc-home__head {\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  gap: 12px;\n  padding: 4px 0 2px;\n}\n\n.fc-home__title { font-size: 20px; font-weight: 600; letter-spacing: .2px; }\n.fc-home__date { margin-top: 3px; font-size: 12.5px; color: var(--fc-muted); }\n\n.fc-goal {\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-lg);\n  padding: 14px;\n}\n\n.fc-goal__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }\n.fc-goal__label { font-size: 12px; color: var(--fc-muted); }\n\n.fc-goal__nums {\n  margin-top: 4px;\n  font-size: 24px;\n  font-weight: 600;\n  letter-spacing: .3px;\n  font-variant-numeric: tabular-nums;\n}\n\n.fc-goal__nums small { font-size: 12px; font-weight: 400; color: var(--fc-muted); }\n\n.fc-goal__bar {\n  height: 6px;\n  margin-top: 12px;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-soft-2);\n  overflow: hidden;\n}\n\n.fc-goal__bar i {\n  display: block;\n  height: 100%;\n  width: 0;\n  border-radius: var(--fc-r-full);\n  background: var(--fc-accent);\n  transition: width .3s ease;\n}\n\n.fc-goal__sub { margin-top: 8px; font-size: 11.5px; color: var(--fc-muted); }\n\n.fc-runbar {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  padding: 12px 14px;\n  border: 1px solid var(--fc-ink);\n  border-radius: 14px;\n  background: var(--fc-soft);\n  color: var(--fc-ink);\n  text-align: left;\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-runbar__dot {\n  width: 8px;\n  height: 8px;\n  flex: 0 0 auto;\n  border-radius: 50%;\n  background: var(--fc-ok);\n  animation: fc-pulse 1.6s ease-in-out infinite;\n}\n\n@keyframes fc-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }\n\n.fc-runbar__time {\n  font-family: var(--fc-mono);\n  font-size: 18px;\n  font-variant-numeric: tabular-nums;\n}\n\n.fc-runbar__task {\n  flex: 1 1 auto;\n  min-width: 0;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  font-size: 12px;\n  color: var(--fc-muted);\n}\n\n.fc-runbar__go { flex: 0 0 auto; font-size: 11.5px; color: var(--fc-ink-2); }\n\n.fc-home__free { width: 100%; }\n\n.fc-task__more {\n  width: 26px;\n  height: 26px;\n  flex: 0 0 auto;\n  padding: 0;\n  border: 0;\n  background: transparent;\n  color: var(--fc-muted);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-task__more .fc-icon { width: 14px; height: 14px; }\n\n.fc-task__done-toggle {\n  display: block;\n  width: 100%;\n  padding: 10px 14px;\n  border: 0;\n  border-top: 1px solid var(--fc-line);\n  background: transparent;\n  color: var(--fc-muted);\n  font: 500 11.5px/1 var(--fc-font);\n  text-align: left;\n  cursor: pointer;\n}\n\n.fc-task__done-toggle:active { background: var(--fc-soft); }\n\n/* ---------- 计时页 ---------- */\n\n.fc-timer { display: flex; flex-direction: column; align-items: center; }\n\n.fc-timer__head {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  margin-bottom: 10px;\n}\n\n.fc-timer__title {\n  flex: 1 1 auto;\n  min-width: 0;\n  padding: 0;\n  border: 0;\n  background: transparent;\n  color: var(--fc-ink);\n  font: 600 14px/1.4 var(--fc-font);\n  text-align: left;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  cursor: pointer;\n}\n\n.fc-iconbtn {\n  width: 34px;\n  height: 34px;\n  flex: 0 0 auto;\n  padding: 0;\n  border: 1px solid var(--fc-line);\n  border-radius: 50%;\n  background: transparent;\n  color: var(--fc-ink-2);\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n\n.fc-iconbtn:active { background: var(--fc-soft); }\n.fc-iconbtn[disabled] { opacity: .35; pointer-events: none; }\n.fc-iconbtn .fc-icon { width: 15px; height: 15px; }\n.fc-iconbtn--accent { border-color: var(--fc-ink); color: var(--fc-ink); }\n\n.fc-timer__meta {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  margin-bottom: 6px;\n}\n\n.fc-chip {\n  display: inline-flex;\n  align-items: center;\n  padding: 5px 10px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-full);\n  background: transparent;\n  color: var(--fc-ink-2);\n  font: 500 11.5px/1 var(--fc-font);\n  cursor: pointer;\n}\n\n.fc-timer__char { font-size: 11.5px; color: var(--fc-muted); }\n\n.fc-timer__actions { display: flex; gap: 10px; margin: 10px 0 4px; }\n.fc-timer__actions .fc-btn { min-height: 34px; font-size: 12.5px; }\n\n/* ---------- 聊天页 ---------- */\n\n.fc-page--fill {\n  display: flex;\n  flex-direction: column;\n  min-height: 100%;\n  padding-bottom: 0;\n}\n\n.fc-page--fill .fc-screen {\n  display: flex;\n  flex-direction: column;\n  flex: 1 1 auto;\n  min-height: 0;\n}\n\n.fc-chat-screen {\n  display: flex;\n  flex-direction: column;\n  flex: 1 1 auto;\n  min-height: 0;\n}\n\n.fc-chat-screen__head {\n  flex: 0 0 auto;\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 2px 0 10px;\n  border-bottom: 1px solid var(--fc-line);\n}\n\n.fc-chat-screen__titles {\n  flex: 1 1 auto;\n  min-width: 0;\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n}\n\n.fc-chat-screen__name {\n  font-size: 14px;\n  font-weight: 600;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.fc-chat-screen__status { font-size: 11px; color: var(--fc-muted); }\n\n.fc-chat-screen__list {\n  flex: 1 1 auto;\n  min-height: 0;\n  overflow-y: auto;\n  -webkit-overflow-scrolling: touch;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n  padding: 12px 2px;\n}\n\n.fc-chat-screen__foot {\n  flex: 0 0 auto;\n  padding-top: 8px;\n  border-top: 1px solid var(--fc-line);\n}\n\n.fc-chat-screen__foot .fc-chat__form { border-top: 0; padding: 8px 0 10px; }\n.fc-chat-screen__foot .fc-chat__hint { padding: 0 0 6px; }\n\n.fc-chat__send--icon {\n  width: 40px;\n  min-width: 40px;\n  height: 40px;\n  min-height: 40px;\n  padding: 0;\n  border-radius: 50%;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.fc-chat__send--icon .fc-icon { width: 18px; height: 18px; }\n\n.fc-dialog .fc-modes { padding: 0; border-bottom: 0; }\n\n/* ---------- 聊天设置：提示词 / 兜底 / 控制台 ---------- */\n\n.fc-chat-settings { display: flex; flex-direction: column; }\n.fc-chat-settings .fc-group { margin-bottom: 16px; }\n\n.fc-chat__bubble--edit { cursor: pointer; }\n.fc-chat__bubble--edit:active { opacity: .8; }\n\n.fc-textarea-msg { min-height: 110px; margin-top: 8px; }\n\n.fc-console__box { padding: 12px 14px; }\n\n.fc-console__tabs {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  margin-bottom: 10px;\n  flex-wrap: wrap;\n}\n\n.fc-console__tab {\n  padding: 5px 10px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-full);\n  background: transparent;\n  color: var(--fc-muted);\n  font: 500 11.5px/1 var(--fc-font);\n  cursor: pointer;\n}\n\n.fc-console__tab.is-active {\n  border-color: var(--fc-ink);\n  color: var(--fc-ink);\n  background: var(--fc-soft);\n}\n\n.fc-console__spacer { flex: 1 1 auto; }\n\n.fc-console__copy {\n  padding: 5px 10px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-full);\n  background: transparent;\n  color: var(--fc-ink-2);\n  font: 500 11px/1 var(--fc-font);\n  cursor: pointer;\n}\n\n.fc-console {\n  max-height: 240px;\n  overflow: auto;\n  margin: 0;\n  padding: 10px 12px;\n  border: 1px solid var(--fc-line);\n  border-radius: 10px;\n  background: var(--fc-soft);\n  color: var(--fc-ink-2);\n  font: 11px/1.65 var(--fc-mono);\n  white-space: pre-wrap;\n  word-break: break-word;\n}\n\n.fc-console__stats {\n  margin-top: 8px;\n  font-size: 10.5px;\n  color: var(--fc-muted);\n  font-variant-numeric: tabular-nums;\n}\n\n/* 开始进入哪一屏 */\n.fc-seg {\n  display: inline-flex;\n  flex: 0 0 auto;\n  padding: 2px;\n  border: 1px solid var(--fc-line);\n  border-radius: var(--fc-r-full);\n  background: var(--fc-soft);\n}\n\n.fc-seg__btn {\n  padding: 6px 10px;\n  border: 0;\n  border-radius: var(--fc-r-full);\n  background: transparent;\n  color: var(--fc-muted);\n  font: 500 11.5px/1 var(--fc-font);\n  cursor: pointer;\n}\n\n.fc-seg__btn.is-active {\n  background: var(--fc-bg);\n  color: var(--fc-ink);\n  box-shadow: 0 1px 3px rgba(0, 0, 0, .08);\n}\n\n/* 可点击插入的占位符 */\n.fc-prompt__chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 6px;\n  margin-top: 6px;\n}\n\n.fc-chip--ins {\n  padding: 3px 8px;\n  border: 1px solid var(--fc-line);\n  background: var(--fc-soft);\n  color: var(--fc-ink-2);\n  font-family: var(--fc-mono);\n  font-size: 10.5px;\n  cursor: pointer;\n}\n\n.fc-chip--ins:active { background: var(--fc-soft-2); }\n\n/* 计时页聊天入口的未读数 */\n.fc-timer__chat { display: inline-flex; align-items: center; gap: 6px; }\n\n.fc-badge--unread {\n  min-width: 16px;\n  padding: 0 4px;\n  background: var(--fc-warn);\n  color: #fff;\n  text-align: center;\n  font-size: 10px;\n  line-height: 16px;\n}\n\n/* ---------- 提示词编辑 ---------- */\n\n.fc-textarea {\n  width: 100%;\n  min-height: 120px;\n  padding: 10px 12px;\n  border: 1px solid var(--fc-line-strong);\n  border-radius: var(--fc-r-md);\n  background: var(--fc-soft);\n  color: var(--fc-ink);\n  font: 400 12.5px/1.7 var(--fc-font);\n  outline: none;\n  resize: vertical;\n  -webkit-appearance: none;\n}\n\n.fc-textarea:focus { border-color: var(--fc-ink-2); background: var(--fc-bg); }\n\n.fc-prompt { padding: 12px 14px; border-bottom: 1px solid var(--fc-line); }\n.fc-prompt:last-child { border-bottom: 0; }\n.fc-prompt__head {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 10px;\n  margin-bottom: 8px;\n}\n.fc-prompt__title { font-size: 13.5px; }\n.fc-prompt__vars {\n  margin-top: 6px;\n  font-size: 10.5px;\n  color: var(--fc-muted);\n  line-height: 1.7;\n  font-family: var(--fc-mono);\n}\n';
 
   // src/services/host.js
   function isFn(obj, name) {
@@ -37,6 +37,7 @@
       personaForConversation: isFn(api.persona, "getUserPersonaForConversation"),
       conversation: isFn(api.conversation, "list"),
       memory: isFn(api.memory, "getLongTerm"),
+      memorySearch: isFn(api.memory, "search"),
       worldbook: isFn(api.worldbook, "list"),
       ai: isFn(api.ai, "chat"),
       voice: isFn(api.voice, "tts"),
@@ -151,6 +152,14 @@
         return await safe("memory.getLongTerm", function() {
           return api.memory.getLongTerm({ conversationId });
         }, null);
+      },
+      /** 向量/语义召回；宿主没有 search 或失败时返回空数组，由调用方降级 */
+      async search(conversationId, query, limit) {
+        if (!caps.memorySearch || !query) return [];
+        var r = await safe("memory.search", function() {
+          return api.memory.search({ conversationId, query, limit: limit || 5 });
+        }, []);
+        return Array.isArray(r) ? r : [];
       }
     };
     var ai = {
@@ -293,6 +302,20 @@
     "【这次是主动开口】只说 1 句，不超过 40 字，口语，不提问，不总结，不连续说两句。",
     "可以提醒、关心或轻轻调侃，但不要打断对方手上的事。"
   ].join("\n");
+  var DEFAULT_NOTE_PROMPT = [
+    "你是{{char}}。",
+    "{{user}}刚完成一次 {{minutes}} 分钟的专注（{{mode}}）。{{task}}",
+    "写 1-2 句给{{user}}的便签，像随手写在纸上的一句话。",
+    "不要总结数据，不要提问，不要列清单，不要提 AI，不超过 40 字。"
+  ].join("\n");
+  var NOTE_PLACEHOLDERS = [
+    { key: "char", label: "角色名" },
+    { key: "user", label: "用户名（面具）" },
+    { key: "task", label: "待办" },
+    { key: "minutes", label: "专注分钟" },
+    { key: "mode", label: "模式" },
+    { key: "bonus", label: "角色加时" }
+  ];
   var PLACEHOLDERS = [
     { key: "char", label: "角色名" },
     { key: "user", label: "用户名（面具）" },
@@ -324,7 +347,7 @@
   }
 
   // src/core/settings.js
-  var SCHEMA_VERSION = 7;
+  var SCHEMA_VERSION = 8;
   var LIMITS = {
     focusMin: [1, 180],
     shortBreakMin: [1, 60],
@@ -404,6 +427,11 @@
       prompts: {
         chat: DEFAULT_CHAT_PROMPT,
         proactive: DEFAULT_PROACTIVE_PROMPT
+      },
+      // 专注结束后的便签：角色写一句话，进便签墙
+      notes: {
+        enabled: true,
+        prompt: DEFAULT_NOTE_PROMPT
       },
       // 语音（P6 使用）
       voice: {
@@ -495,6 +523,13 @@
     out.proactive = mergePrompt(raw.proactive, def.proactive);
     return out;
   }
+  function mergeNotes(raw, def) {
+    var out = Object.assign({}, def);
+    if (!raw || typeof raw !== "object") return out;
+    out.enabled = clampBool(raw.enabled, def.enabled);
+    out.prompt = mergePrompt(raw.prompt, def.prompt);
+    return out;
+  }
   function mergeGoal(raw, def) {
     var out = Object.assign({}, def);
     if (!raw || typeof raw !== "object") return out;
@@ -533,6 +568,7 @@
     out.ai = mergeAi(raw.ai, def.ai);
     out.chat = mergeChat(raw.chat, def.chat);
     out.prompts = mergePrompts(raw.prompts, def.prompts);
+    out.notes = mergeNotes(raw.notes, def.notes);
     out.voice = mergeVoice(raw.voice, def.voice);
     out.theme = raw.theme === "dark" ? "dark" : "light";
     out.schemaVersion = SCHEMA_VERSION;
@@ -807,10 +843,24 @@
 
   // src/core/records.js
   var MAX_RECORDS = 1e3;
+  var MAX_TRANSCRIPT = 20;
+  function normalizeTranscript(raw) {
+    if (!Array.isArray(raw)) return [];
+    return raw.filter(function(m) {
+      return m && (m.role === "user" || m.role === "char") && m.text;
+    }).slice(-MAX_TRANSCRIPT).map(function(m) {
+      return {
+        role: m.role,
+        text: String(m.text).slice(0, 160),
+        at: Math.max(0, Number(m.at) || 0)
+      };
+    });
+  }
   function makeRecord(opts) {
     var session = opts.session;
     var now = opts.now || session.completedAt || session.startedAt;
     var actual = elapsed(session, now);
+    var transcript = normalizeTranscript(opts.transcript);
     return {
       id: "r_" + now.toString(36) + Math.random().toString(36).slice(2, 6),
       dateKey: dayKey(session.startedAt || now),
@@ -827,6 +877,11 @@
       interventions: normalizeInterventions(session.interventions),
       taskId: typeof session.taskId === "string" ? session.taskId : "",
       taskName: opts.taskName || session.taskName || "",
+      note: "",
+      noteAt: 0,
+      noteSource: "",
+      transcript,
+      hasChat: transcript.length > 0,
       notes: "",
       injected: false
     };
@@ -836,6 +891,7 @@
     var id = typeof raw.id === "string" ? raw.id : "";
     var startedAt = Number(raw.startedAt) || 0;
     if (!id || !startedAt) return null;
+    var transcript = normalizeTranscript(raw.transcript);
     return {
       id,
       dateKey: typeof raw.dateKey === "string" && raw.dateKey ? raw.dateKey : dayKey(startedAt),
@@ -852,6 +908,11 @@
       interventions: normalizeInterventions(raw.interventions),
       taskId: typeof raw.taskId === "string" ? raw.taskId : "",
       taskName: typeof raw.taskName === "string" ? raw.taskName : "",
+      note: typeof raw.note === "string" ? raw.note.slice(0, 400) : "",
+      noteAt: Math.max(0, Number(raw.noteAt) || 0),
+      noteSource: raw.noteSource === "char" || raw.noteSource === "user" ? raw.noteSource : "",
+      transcript,
+      hasChat: transcript.length > 0,
       notes: typeof raw.notes === "string" ? raw.notes : "",
       injected: !!raw.injected
     };
@@ -885,6 +946,13 @@
   function removeRecord(list, id) {
     return (list || []).filter(function(r) {
       return r.id !== id;
+    });
+  }
+  function updateRecord(list, id, patch) {
+    return (list || []).map(function(r) {
+      if (r.id !== id) return r;
+      var merged = Object.assign({}, r, patch, { id: r.id });
+      return normalizeRecord(merged) || r;
     });
   }
 
@@ -1401,7 +1469,7 @@
     var out = String(text || "").replace(/```[\s\S]*?```/g, "").replace(/\r\n/g, "\n").trim();
     out = out.replace(/^[^\n：:]{1,12}[：:]\s*/, "");
     out = out.replace(/\n{3,}/g, "\n\n");
-    var limit = scene === "proactive" ? 120 : 400;
+    var limit = scene === "proactive" || scene === "note" ? 120 : 400;
     if (out.length > limit) out = out.slice(0, limit).trim();
     return out;
   }
@@ -1480,6 +1548,36 @@
       });
       return { ok: true, text };
     }
+    async function note(input) {
+      var settings = getSettings();
+      if (!settings.notes || !settings.notes.enabled) return { ok: false, reason: "notes_off" };
+      if (!settings.ai.enabled) return { ok: false, reason: "ai_off" };
+      if (!host.caps.ai) return { ok: false, reason: "no_api" };
+      var vars = {
+        char: pickName(input.character, "角色"),
+        user: pickName(input.persona, "你"),
+        task: input.taskName ? "待办：" + input.taskName + "。" : "",
+        minutes: String(Math.max(1, Math.round((Number(input.actualMs) || 0) / 6e4))),
+        mode: modeLabel(settings.focusMode),
+        bonus: input.bonusMs ? "角色加时 " + Math.round(input.bonusMs / 6e4) + " 分钟。" : ""
+      };
+      var system = renderPrompt(settings.notes.prompt, vars);
+      var result = await withTimeout(host.ai.chat({
+        messages: [
+          { role: "system", content: system },
+          { role: "user", content: "写这张便签。" }
+        ],
+        temperature: Math.min(1.2, settings.ai.temperature + 0.1)
+      }), settings.ai.timeoutMs);
+      if (!result.ok) {
+        bus.emit(EVENTS.AI_FAILED, { reason: result.reason, scene: "note" });
+        return result;
+      }
+      var text = cleanup(result.text, "note");
+      if (!text) return { ok: false, reason: "empty" };
+      bus.emit(EVENTS.CHARACTER_SPEAK, { scene: "note", text });
+      return { ok: true, text };
+    }
     function preview(input) {
       var settings = getSettings();
       var template = typeof input.template === "string" ? input.template : input.scene === "proactive" ? settings.prompts.proactive : settings.prompts.chat;
@@ -1502,7 +1600,7 @@
         vars: buildVars(input)
       };
     }
-    return { reply, preview, buildVars };
+    return { reply, note, preview, buildVars };
   }
 
   // src/ui/sound.js
@@ -1689,7 +1787,7 @@
     var destroyed = false;
     var charCtx = { character: null, persona: null };
     function emptyMemory(loaded) {
-      return { core: "", long: "", short: "", vector: "", loaded: !!loaded };
+      return { core: "", long: "", short: "", vector: "", vectorFromSearch: false, loaded: !!loaded };
     }
     var memCtx = emptyMemory(false);
     var aiState = { busy: false, lastAt: 0, lastActiveAt: now, lastProactiveAt: 0 };
@@ -1733,9 +1831,15 @@
       return s;
     }
     function saveRecordFrom(s) {
+      var transcript = (state.get().chat || []).filter(function(m) {
+        return m && m.text;
+      }).slice(-20).map(function(m) {
+        return { role: m.role, text: String(m.text).slice(0, 160), at: m.at };
+      });
       var record = makeRecord({
         session: s,
-        now: s.completedAt || Date.now()
+        now: s.completedAt || Date.now(),
+        transcript
       });
       if (record.actualMs < 6e4) return null;
       records = insertRecord(records, record);
@@ -1747,7 +1851,35 @@
         store.saveTasks(tasks);
       }
       bus.emit(EVENTS.RECORD_SAVED, { record });
+      if (record.completed) maybeWriteNote(record);
       return record;
+    }
+    function maybeWriteNote(record) {
+      if (!record || !settings.notes.enabled) return;
+      if (!settings.ai.enabled || !host.caps.ai) return;
+      if (aiQuotaLeft() <= 0) return;
+      markAiUse();
+      var prepare = settings.characterId && !charCtx.character ? refreshCharacterContext() : Promise.resolve();
+      prepare.then(function() {
+        return dialogue.note({
+          character: charCtx.character,
+          persona: charCtx.persona,
+          taskName: record.taskName,
+          actualMs: record.actualMs,
+          bonusMs: record.bonusMs,
+          now: Date.now()
+        });
+      }).then(function(res) {
+        if (!res || !res.ok) return;
+        records = updateRecord(records, record.id, {
+          note: res.text,
+          noteAt: Date.now(),
+          noteSource: "char"
+        });
+        state.set({ records });
+        store.saveRecords(records);
+      }, function() {
+      });
     }
     function startPhase(phase, round) {
       var s = start(newIdle(phase, round), Date.now());
@@ -1865,14 +1997,14 @@
       if (!raw || typeof raw !== "object") return "";
       var facts = Array.isArray(raw.facts) ? raw.facts.slice(0, 12) : [];
       return facts.map(function(f) {
-        var text = f && (f.summaryText || f.summary || f.text);
+        var text = f && (f.summaryText || f.summary || f.text || f.content);
         return text ? "· " + String(text).slice(0, 120) : "";
       }).filter(Boolean).join("\n").slice(0, 1200);
     }
     function formatMemoryVector(raw) {
       if (!raw || !Array.isArray(raw.vectors)) return "";
       return raw.vectors.slice(0, 8).map(function(v) {
-        var text = v && (v.summaryText || v.summary || v.text);
+        var text = v && (v.summaryText || v.summary || v.text || v.content);
         return text ? "· " + String(text).slice(0, 120) : "";
       }).filter(Boolean).join("\n").slice(0, 900);
     }
@@ -1892,12 +2024,14 @@
         return Promise.resolve(memCtx);
       }
       var cid = charCtx.character.conversationId;
+      var prevVector = memCtx.vectorFromSearch ? memCtx.vector : "";
       memoryPending = Promise.all([host.memory.longTerm(cid), host.memory.shortTerm(cid, 8)]).then(function(results) {
         memCtx = {
           core: formatMemoryCore(results[0]),
           long: formatMemoryLong(results[0]),
           short: formatMemoryShort(results[1]),
-          vector: formatMemoryVector(results[0]),
+          vector: prevVector || formatMemoryVector(results[0]),
+          vectorFromSearch: !!prevVector,
           loaded: true
         };
         memoryPending = null;
@@ -1950,6 +2084,25 @@
         await refreshCharacterContext();
       }
       if (!memCtx.loaded) await refreshMemoryContext();
+      if (charCtx.character && host.caps.memorySearch) {
+        var chat = state.get().chat;
+        var lastUserText = "";
+        for (var i = chat.length - 1; i >= 0; i--) {
+          if (chat[i].role === "user") {
+            lastUserText = chat[i].text;
+            break;
+          }
+        }
+        if (lastUserText) {
+          var hits = await host.memory.search(charCtx.character.conversationId, lastUserText, 5);
+          if (hits.length) {
+            memCtx = Object.assign({}, memCtx, {
+              vector: formatMemoryVector({ vectors: hits }),
+              vectorFromSearch: true
+            });
+          }
+        }
+      }
       var s = state.get().session;
       var result = await dialogue.reply({
         scene,
@@ -2179,9 +2332,9 @@
           now: Date.now()
         });
       },
-      /** 聊天设置打开时刷新记忆占位符内容 */
+      /** 聊天设置打开时刷新记忆占位符内容（保留已召回的向量记忆） */
       refreshMemory: function() {
-        memCtx = emptyMemory(false);
+        memCtx = Object.assign({}, memCtx, { loaded: false });
         return refreshMemoryContext();
       },
       /** 编辑角色这一轮的回复，后续上下文会用改后的文本 */
@@ -2570,6 +2723,18 @@
     while (node && node.firstChild) node.removeChild(node.firstChild);
     return node;
   }
+  function insertAtCursor(el, text) {
+    var start2 = typeof el.selectionStart === "number" ? el.selectionStart : el.value.length;
+    var end = typeof el.selectionEnd === "number" ? el.selectionEnd : start2;
+    el.value = el.value.slice(0, start2) + text + el.value.slice(end);
+    var pos = start2 + text.length;
+    try {
+      el.setSelectionRange(pos, pos);
+    } catch (e) {
+    }
+    el.focus();
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+  }
   var SVG_NS = "http://www.w3.org/2000/svg";
   function svg(tag, attrs, children) {
     var el = document.createElementNS(SVG_NS, tag);
@@ -2609,6 +2774,7 @@
     target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg>',
     more: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/></svg>',
     plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+    note: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v11l-5 5H5z"/><path d="M14 20v-5h5"/><path d="M8 9h8M8 13h5"/></svg>',
     export: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/><path d="M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>'
   };
   function icon(name, cls) {
@@ -3966,12 +4132,89 @@
     }
   };
 
+  // src/ui/recordDetail.js
+  function row(label, value) {
+    return h("div", { class: "fc-row" }, [
+      h("div", { class: "fc-row__main" }, [h("div", { class: "fc-row__title", text: label })]),
+      h("div", { class: "fc-row__value", text: value })
+    ]);
+  }
+  function interventionsText(counts) {
+    if (!counts) return "";
+    var parts = [];
+    if (counts.extend) parts.push("加时 " + counts.extend + " 次");
+    if (counts.mute) parts.push("禁言 " + counts.mute + " 次");
+    if (counts.lock) parts.push("锁房间 " + counts.lock + " 次");
+    if (counts.speak) parts.push("发言 " + counts.speak + " 次");
+    return parts.join(" · ");
+  }
+  function openChatArchive(record) {
+    var body = h("div", { class: "fc-archive" }, record.transcript.map(function(msg) {
+      var isChar = msg.role !== "user";
+      return h("div", { class: "fc-chat__msg fc-chat__msg--" + (isChar ? "char" : "me") }, [
+        h("div", { class: "fc-chat__bubble", text: msg.text }),
+        msg.at ? h("div", { class: "fc-chat__time", text: fmtTime(msg.at) }) : null
+      ]);
+    }));
+    dialog({
+      title: "聊天存档",
+      body,
+      actions: [{ label: "关闭", value: true, variant: "primary" }]
+    });
+  }
+  function openRecordDetail(record, ctx) {
+    var extra = interventionsText(record.interventions);
+    var body = h("div", {}, [
+      row("模式", modeLabel(record.mode)),
+      record.characterName ? row("角色", record.characterName) : null,
+      record.taskName ? row("待办", record.taskName) : null,
+      row("开始", fmtTime(record.startedAt)),
+      row("结束", fmtTime(record.endedAt)),
+      row("实际专注", fmtDuration(record.actualMs)),
+      row("计划时长", fmtDuration(record.plannedMs)),
+      record.bonusMs ? row("角色加时", "+" + fmtDuration(record.bonusMs, { compact: true })) : null,
+      extra ? row("角色介入", extra) : null,
+      row("状态", record.completed ? "已完成" : "提前结束"),
+      record.note ? h("div", { class: "fc-detail-note" }, [
+        h("div", { class: "fc-row__sub", text: "角色便签" }),
+        h("div", { class: "fc-detail-note__text", text: record.note })
+      ]) : null,
+      record.transcript && record.transcript.length ? h("div", { class: "fc-row fc-row--tap", onclick: function() {
+        openChatArchive(record);
+      } }, [
+        h("div", { class: "fc-row__main" }, [
+          h("div", { class: "fc-row__title", text: "聊天存档" }),
+          h("div", { class: "fc-row__sub", text: "共 " + record.transcript.length + " 条" })
+        ]),
+        h("div", { class: "fc-row__action", text: "查看 ›" })
+      ]) : null
+    ]);
+    dialog({
+      title: "专注详情",
+      body,
+      actions: [
+        { label: "删除", value: "delete", variant: "danger" },
+        { label: "关闭", value: true, variant: "primary" }
+      ]
+    }).then(async function(result) {
+      if (result !== "delete") return;
+      var ok = await ctx.host.ui.confirm({
+        title: "删除记录",
+        message: "这条专注记录与便签会一起删除，确定吗？"
+      });
+      if (ok) ctx.actions.deleteRecord(record.id);
+    });
+  }
+
   // src/ui/views/stats.js
   var stats_default = {
     mount: function(page, ctx) {
       var state = ctx.state;
       var initial = state.get();
       var cursor = initial.calendar;
+      var selectedDay = dayKey(initial.now);
+      var lastRecordsRef = null;
+      var lastSelectedDay = "";
       var tiles = h("div", { class: "fc-tiles" });
       var monthLabel = h("div", { class: "fc-cal__month" });
       var prevBtn = h("button", { class: "fc-cal__nav", type: "button", text: "‹", onclick: function() {
@@ -4001,13 +4244,32 @@
         grid,
         legend
       ]);
+      var dayTitle = h("div", { class: "fc-dayview__title" });
+      var daySummary = h("div", { class: "fc-dayview__sub" });
+      var dayList = h("div", { class: "fc-list" });
+      var todayBtn = h("button", {
+        class: "fc-btn fc-btn--ghost fc-dayview__today",
+        type: "button",
+        text: "回到今天",
+        onclick: function() {
+          jumpToday();
+        }
+      });
+      var dayView = h("section", { class: "fc-dayview" }, [
+        h("div", { class: "fc-dayview__head" }, [
+          h("div", {}, [dayTitle, daySummary]),
+          todayBtn
+        ]),
+        dayList
+      ]);
       page.appendChild(h("div", {}, [
-        pageHeader("统计", "专注时长与连续天数", closeButton(function() {
+        pageHeader("统计", "专注时长、连续天数与当天记录", closeButton(function() {
           ctx.host.ui.closeApp();
         })),
         tiles,
         card([cal]),
-        h("p", { class: "fc-hint", text: "统计全部由本机专注记录计算，不调用任何接口。" })
+        h("p", { class: "fc-hint", text: "点日期查看当天记录；统计全部由本机记录计算，不调用任何接口。" }),
+        dayView
       ]));
       function shiftMonth(delta) {
         var m = cursor.month + delta;
@@ -4021,26 +4283,66 @@
           y += 1;
         }
         cursor = { year: y, month: m };
+        var d = selectedDay.split("-");
+        if (Number(d[0]) !== y || Number(d[1]) - 1 !== m) {
+          selectedDay = dayKey(new Date(y, m, 1).getTime());
+        }
         ctx.actions.setCalendar(y, m);
       }
-      function showDay(cell) {
-        if (!cell.inMonth || !cell.ms) {
-          ctx.host.ui.toast(mt().noRecord);
+      function jumpToday() {
+        var now = state.get().now;
+        selectedDay = dayKey(now);
+        var d = new Date(now);
+        if (cursor.year !== d.getFullYear() || cursor.month !== d.getMonth()) {
+          cursor = { year: d.getFullYear(), month: d.getMonth() };
+          ctx.actions.setCalendar(cursor.year, cursor.month);
+        }
+        render(state.get());
+      }
+      function selectDay(key) {
+        selectedDay = key;
+        render(state.get());
+      }
+      function dayLabel(key, now) {
+        if (key === dayKey(now)) return "今天 · " + fmtDateCN(now);
+        var parts = key.split("-");
+        var ts = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2])).getTime();
+        return fmtDateCN(ts) + " 周" + weekdayCN(ts);
+      }
+      function renderDay(s) {
+        var list = (s.records || []).filter(function(r) {
+          return r.dateKey === selectedDay;
+        });
+        var totalMs2 = 0;
+        list.forEach(function(r) {
+          totalMs2 += r.actualMs;
+        });
+        dayTitle.textContent = dayLabel(selectedDay, s.now);
+        daySummary.textContent = list.length ? list.length + " 次 · " + fmtDuration(totalMs2, { compact: false }) : "没有记录";
+        todayBtn.hidden = selectedDay === dayKey(s.now);
+        clear(dayList);
+        if (!list.length) {
+          dayList.appendChild(emptyState("这一天没有专注记录", "完成一次专注后，记录会出现在这里。"));
           return;
         }
-        var list = state.get().records.filter(function(r) {
-          return r.dateKey === cell.key;
-        });
-        var body = h("div", {}, list.map(function(r) {
-          return h("div", { class: "fc-row" }, [
+        list.forEach(function(r) {
+          dayList.appendChild(h("div", {
+            class: "fc-row fc-row--tap",
+            onclick: function() {
+              openRecordDetail(r, ctx);
+            }
+          }, [
             h("div", { class: "fc-row__main" }, [
-              h("div", { class: "fc-row__title", text: fmtTime(r.startedAt) + " - " + fmtTime(r.endedAt) }),
-              h("div", { class: "fc-row__sub", text: r.completed ? "已完成" : "提前结束" })
+              h("div", { class: "fc-row__title" }, [
+                h("span", { text: fmtTime(r.startedAt) + " - " + fmtTime(r.endedAt) }),
+                r.completed ? null : h("span", { class: "fc-hist__badge fc-hist__badge--abort", text: "提前结束" }),
+                r.note ? h("span", { class: "fc-hist__badge", text: "便签" }) : null
+              ]),
+              h("div", { class: "fc-row__sub", text: r.taskName || "未指定待办" })
             ]),
             h("div", { class: "fc-row__value", text: fmtDuration(r.actualMs, { compact: true }) })
-          ]);
-        }));
-        dialog({ title: cell.key, body, actions: [{ label: "关闭", value: true }] });
+          ]));
+        });
       }
       function render(s) {
         var records = s.records;
@@ -4057,6 +4359,7 @@
         nextBtn.disabled = isFuture;
         var cells = monthCells(cursor.year, cursor.month, map, now);
         var max = maxMsInCells(cells);
+        var todayKey = dayKey(now);
         clear(grid);
         cells.forEach(function(c) {
           var cls = "fc-day";
@@ -4065,13 +4368,14 @@
             var lvl = heatLevel(c.ms, max);
             if (lvl > 0) cls += " fc-day--h" + lvl;
           }
-          if (c.isToday) cls += " fc-day--today";
+          if (c.key === todayKey) cls += " fc-day--today";
+          if (c.key === selectedDay) cls += " fc-day--selected";
           var cell = h("button", {
             class: cls,
             type: "button",
             title: c.ms ? fmtDuration(c.ms, { compact: true }) : "",
             onclick: function() {
-              showDay(c);
+              selectDay(c.key);
             }
           }, [
             h("span", { text: c.inMonth ? String(c.day) : "" }),
@@ -4080,6 +4384,11 @@
           if (!c.inMonth) cell.disabled = true;
           grid.appendChild(cell);
         });
+        if (s.records !== lastRecordsRef || selectedDay !== lastSelectedDay) {
+          lastRecordsRef = s.records;
+          lastSelectedDay = selectedDay;
+          renderDay(s);
+        }
       }
       render(initial);
       return {
@@ -4094,139 +4403,223 @@
     }
   };
 
-  // src/ui/views/history.js
-  function interventionsText(counts) {
-    if (!counts) return "";
-    var parts = [];
-    if (counts.extend) parts.push("加时 " + counts.extend + " 次");
-    if (counts.mute) parts.push("禁言 " + counts.mute + " 次");
-    if (counts.lock) parts.push("锁房间 " + counts.lock + " 次");
-    if (counts.speak) parts.push("发言 " + counts.speak + " 次");
-    return parts.join(" · ");
+  // src/core/notes.js
+  var NOTE_RANGES = [
+    { id: "all", label: "全部" },
+    { id: "today", label: "今天" },
+    { id: "week", label: "本周" },
+    { id: "month", label: "本月" }
+  ];
+  function noteRangeBounds(range, now) {
+    if (range === "today") {
+      var from = startOfDay(now);
+      return { from, to: addDays(from, 1) };
+    }
+    if (range === "week") {
+      var offset = (new Date(now).getDay() + 6) % 7;
+      var weekStart = startOfDay(addDays(startOfDay(now), -offset));
+      return { from: weekStart, to: addDays(weekStart, 7) };
+    }
+    if (range === "month") {
+      var d = new Date(now);
+      return {
+        from: new Date(d.getFullYear(), d.getMonth(), 1).getTime(),
+        to: new Date(d.getFullYear(), d.getMonth() + 1, 1).getTime()
+      };
+    }
+    return { from: 0, to: Number.MAX_SAFE_INTEGER };
   }
-  function dateTitle(key, now) {
-    var today = dayKey(now);
-    var yesterday = dayKey(addDays(now, -1));
-    if (key === today) return "今天";
-    if (key === yesterday) return "昨天";
-    var parts = key.split("-");
-    var ts = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2])).getTime();
-    return fmtDateCN(ts) + " 周" + weekdayCN(ts);
+  function filterNotes(records, opts) {
+    var options = opts || {};
+    var now = Number(options.now) || 0;
+    var range = options.range || "all";
+    var query = String(options.query || "").trim().toLowerCase();
+    var bounds = noteRangeBounds(range, now);
+    return (records || []).filter(function(r) {
+      if (!r || !r.note) return false;
+      if (r.startedAt < bounds.from || r.startedAt >= bounds.to) return false;
+      if (!query) return true;
+      var haystack = (String(r.note) + " " + String(r.taskName || "") + " " + String(r.characterName || "")).toLowerCase();
+      return haystack.indexOf(query) !== -1;
+    }).sort(function(a, b) {
+      return b.startedAt - a.startedAt;
+    });
   }
-  var history_default = {
+
+  // src/ui/views/notes.js
+  function openNoteSettings(ctx, onChange) {
+    var settings = ctx.state.get().settings;
+    var enabled = settings.notes.enabled;
+    var switchBtn = h("button", {
+      class: "fc-switch",
+      type: "button",
+      role: "switch",
+      "aria-checked": String(enabled),
+      onclick: function() {
+        enabled = !enabled;
+        switchBtn.setAttribute("aria-checked", String(enabled));
+      }
+    });
+    var area = h("textarea", { class: "fc-textarea", rows: "6" });
+    area.value = settings.notes.prompt;
+    var chips = h("div", { class: "fc-prompt__chips" }, NOTE_PLACEHOLDERS.map(function(p) {
+      return h("button", {
+        class: "fc-chip fc-chip--ins",
+        type: "button",
+        title: p.label,
+        text: "{{" + p.key + "}}",
+        onclick: function() {
+          insertAtCursor(area, "{{" + p.key + "}}");
+        }
+      });
+    }));
+    var body = h("div", {}, [
+      h("div", { class: "fc-row fc-row--plain" }, [
+        h("div", { class: "fc-row__main" }, [
+          h("div", { class: "fc-row__title", text: "完成后写便签" }),
+          h("div", { class: "fc-row__sub", text: "每次完成专注让角色写一句，消耗一次 AI 调用" })
+        ]),
+        switchBtn
+      ]),
+      h("div", { class: "fc-dialog__label", text: "便签提示词" }),
+      area,
+      h("div", { class: "fc-prompt__vars", text: "点一下插入占位符：" }),
+      chips,
+      h("div", { class: "fc-prompt__head" }, [
+        h("div", { class: "fc-row__sub", text: "留空保存会恢复默认" }),
+        button("恢复默认", {
+          variant: "ghost",
+          onClick: function() {
+            area.value = DEFAULT_NOTE_PROMPT;
+          }
+        })
+      ])
+    ]);
+    dialog({
+      title: "便签墙设置",
+      body,
+      actions: [
+        { label: "取消", value: false },
+        { label: "保存", value: "save", variant: "primary" }
+      ]
+    }).then(function(result) {
+      if (result !== "save") return;
+      ctx.actions.updateSettings({ notes: { enabled, prompt: area.value } });
+      ctx.host.ui.toast("便签设置已保存");
+      onChange();
+    });
+  }
+  var notes_default = {
     mount: function(page, ctx) {
       var state = ctx.state;
-      var listWrap = h("div", {});
-      var headerEl = pageHeader("历史", "按天查看每次专注", closeButton(function() {
-        ctx.host.ui.closeApp();
-      }));
-      page.appendChild(h("div", {}, [headerEl, listWrap]));
-      function openDetail(record) {
-        var extra = interventionsText(record.interventions);
-        var body = h("div", {}, [
-          h("div", { class: "fc-row" }, [
-            h("div", { class: "fc-row__main" }, [h("div", { class: "fc-row__title", text: "模式" })]),
-            h("div", { class: "fc-row__value", text: modeLabel(record.mode) })
-          ]),
-          record.characterName ? h("div", { class: "fc-row" }, [
-            h("div", { class: "fc-row__main" }, [h("div", { class: "fc-row__title", text: "角色" })]),
-            h("div", { class: "fc-row__value", text: record.characterName })
-          ]) : null,
-          record.taskName ? h("div", { class: "fc-row" }, [
-            h("div", { class: "fc-row__main" }, [h("div", { class: "fc-row__title", text: "待办" })]),
-            h("div", { class: "fc-row__value", text: record.taskName })
-          ]) : null,
-          h("div", { class: "fc-row" }, [
-            h("div", { class: "fc-row__main" }, [h("div", { class: "fc-row__title", text: "开始" })]),
-            h("div", { class: "fc-row__value", text: fmtTime(record.startedAt) })
-          ]),
-          h("div", { class: "fc-row" }, [
-            h("div", { class: "fc-row__main" }, [h("div", { class: "fc-row__title", text: "结束" })]),
-            h("div", { class: "fc-row__value", text: fmtTime(record.endedAt) })
-          ]),
-          h("div", { class: "fc-row" }, [
-            h("div", { class: "fc-row__main" }, [h("div", { class: "fc-row__title", text: "实际专注" })]),
-            h("div", { class: "fc-row__value", text: fmtDuration(record.actualMs) })
-          ]),
-          h("div", { class: "fc-row" }, [
-            h("div", { class: "fc-row__main" }, [h("div", { class: "fc-row__title", text: "计划时长" })]),
-            h("div", { class: "fc-row__value", text: fmtDuration(record.plannedMs) })
-          ]),
-          record.bonusMs ? h("div", { class: "fc-row" }, [
-            h("div", { class: "fc-row__main" }, [h("div", { class: "fc-row__title", text: "角色加时" })]),
-            h("div", { class: "fc-row__value", text: "+" + fmtDuration(record.bonusMs, { compact: true }) })
-          ]) : null,
-          extra ? h("div", { class: "fc-row" }, [
-            h("div", { class: "fc-row__main" }, [h("div", { class: "fc-row__title", text: "角色介入" })]),
-            h("div", { class: "fc-row__value", text: extra })
-          ]) : null,
-          h("div", { class: "fc-row" }, [
-            h("div", { class: "fc-row__main" }, [h("div", { class: "fc-row__title", text: "状态" })]),
-            h("div", { class: "fc-row__value", text: record.completed ? "已完成" : "提前结束" })
-          ])
-        ]);
-        dialog({
-          title: "专注详情",
-          body,
-          actions: [
-            { label: "删除", value: "delete", variant: "danger" },
-            { label: "关闭", value: false, variant: "primary" }
-          ]
-        }).then(function(result) {
-          if (result !== "delete") return;
-          ctx.actions.deleteRecord(record.id);
-          ctx.host.ui.toast("已删除");
+      var range = "all";
+      var query = "";
+      var listEl = h("div", { class: "fc-notes" });
+      var search = h("input", {
+        class: "fc-input fc-notes__search",
+        type: "text",
+        placeholder: "搜索便签或待办…",
+        "aria-label": "搜索便签",
+        oninput: function() {
+          query = search.value;
+          renderList(state.get());
+        }
+      });
+      var rangeBtns = NOTE_RANGES.map(function(r) {
+        return h("button", {
+          class: "fc-filter__btn" + (r.id === range ? " is-active" : ""),
+          type: "button",
+          text: r.label,
+          dataset: { range: r.id },
+          onclick: function() {
+            range = r.id;
+            Array.prototype.forEach.call(rangeBtns, function(b) {
+              b.classList.toggle("is-active", b.dataset.range === range);
+            });
+            renderList(state.get());
+          }
         });
-      }
-      function render(s) {
-        clear(listWrap);
-        var records = s.records || [];
-        if (!records.length) {
-          listWrap.appendChild(card([emptyState("还没有专注记录", "完成一次专注后，这里会出现记录。")]));
+      });
+      var gearBtn = h("button", {
+        class: "fc-iconbtn",
+        type: "button",
+        title: "便签设置",
+        "aria-label": "便签设置",
+        onclick: function() {
+          openNoteSettings(ctx, function() {
+            renderList(state.get());
+          });
+        }
+      }, [icon("sliders")]);
+      page.appendChild(h("div", {}, [
+        pageHeader("便签墙", "角色在每次专注后写下的话", h("div", { class: "fc-header__actions" }, [
+          gearBtn,
+          closeButton(function() {
+            ctx.host.ui.closeApp();
+          })
+        ])),
+        h("div", { class: "fc-notes__bar" }, [
+          h("div", { class: "fc-filter" }, rangeBtns),
+          search
+        ]),
+        listEl,
+        h("p", { class: "fc-hint", text: "按时间倒序；可切换时间段或在便签/待办里搜索。点卡片看这次专注的详情与聊天存档。" })
+      ]));
+      function renderList(s) {
+        clear(listEl);
+        var settings = s.settings;
+        if (!settings.notes.enabled) {
+          listEl.appendChild(emptyState(
+            "便签墙已关闭",
+            "完成专注后不再生成便签，已有内容仍会保留。",
+            button("打开设置", {
+              variant: "ghost",
+              onClick: function() {
+                openNoteSettings(ctx, function() {
+                  renderList(state.get());
+                });
+              }
+            })
+          ));
           return;
         }
-        var groups = [];
-        var index = {};
-        records.forEach(function(r) {
-          if (!index[r.dateKey]) {
-            index[r.dateKey] = { key: r.dateKey, items: [], totalMs: 0 };
-            groups.push(index[r.dateKey]);
+        var notes = filterNotes(s.records, { range, query, now: s.now });
+        if (!notes.length) {
+          listEl.appendChild(emptyState(
+            "还没有便签",
+            query ? "换个关键词试试。" : "完成一次专注后，角色会写一句放在这里。"
+          ));
+          return;
+        }
+        var lastDay = "";
+        notes.forEach(function(r) {
+          var day = r.dateKey;
+          if (day !== lastDay) {
+            lastDay = day;
+            listEl.appendChild(h("div", { class: "fc-notes__day", text: fmtDateCN(r.startedAt) }));
           }
-          index[r.dateKey].items.push(r);
-          index[r.dateKey].totalMs += r.actualMs;
-        });
-        groups.forEach(function(g) {
-          var rows = g.items.map(function(r) {
-            return h("div", {
-              class: "fc-row fc-row--tap",
-              onclick: function() {
-                openDetail(r);
-              }
-            }, [
-              h("div", { class: "fc-row__main" }, [
-                h("div", { class: "fc-row__title" }, [
-                  h("span", { text: fmtTime(r.startedAt) + " - " + fmtTime(r.endedAt) }),
-                  r.completed ? null : h("span", { class: "fc-hist__badge fc-hist__badge--abort", text: "提前结束" })
-                ])
-              ]),
-              h("div", { class: "fc-row__value", text: fmtDuration(r.actualMs, { compact: true }) })
-            ]);
-          });
-          listWrap.appendChild(h("div", { class: "fc-hist__group" }, [
-            h("div", { class: "fc-hist__date" }, [
-              h("span", { text: dateTitle(g.key, s.now) }),
-              h("span", { class: "fc-hist__dur", text: fmtDuration(g.totalMs, { compact: true }) })
-            ]),
-            h("div", { class: "fc-list" }, rows)
+          listEl.appendChild(h("button", {
+            class: "fc-note-card",
+            type: "button",
+            onclick: function() {
+              openRecordDetail(r, ctx);
+            }
+          }, [
+            h("div", { class: "fc-note-card__text", text: r.note }),
+            h("div", { class: "fc-note-card__meta" }, [
+              h("span", { text: fmtTime(r.startedAt) }),
+              r.taskName ? h("span", { class: "fc-note-card__task", text: r.taskName }) : null,
+              h("span", { text: fmtDuration(r.actualMs, { compact: true }) }),
+              r.transcript && r.transcript.length ? h("span", { class: "fc-note-card__badge", text: "有聊天" }) : null
+            ])
           ]));
         });
-        headerEl.querySelector(".fc-header__sub").textContent = "共 " + records.length + " 次";
       }
-      render(state.get());
+      renderList(state.get());
       return {
         update: function(s, keys) {
           if (keys.indexOf("now") !== -1 && keys.length === 1) return;
-          render(s);
+          renderList(s);
         },
         destroy: function() {
         }
@@ -4622,7 +5015,7 @@
   var ROUTES = [
     { id: "focus", label: "专注", icon: "focus", view: focus_default },
     { id: "stats", label: "统计", icon: "stats", view: stats_default },
-    { id: "history", label: "历史", icon: "history", view: history_default },
+    { id: "notes", label: "便签墙", icon: "note", view: notes_default },
     { id: "settings", label: "设置", icon: "settings", view: settings_default }
   ];
   function mountShell(container, ctx) {
@@ -4650,13 +5043,31 @@
     container.appendChild(root);
     container.setAttribute("data-theme", initial.settings.theme);
     var current = null;
+    function isField(el) {
+      return !!el && (el.tagName === "TEXTAREA" || el.tagName === "INPUT");
+    }
+    function onFocusIn(e) {
+      if (!isField(e.target)) return;
+      root.classList.add("fc-root--editing");
+      var el = e.target;
+      setTimeout(function() {
+        if (el && el.scrollIntoView) el.scrollIntoView({ block: "center", behavior: "smooth" });
+      }, 260);
+    }
+    function onFocusOut(e) {
+      if (!isField(e.target)) return;
+      setTimeout(function() {
+        if (!isField(document.activeElement)) root.classList.remove("fc-root--editing");
+      }, 120);
+    }
+    root.addEventListener("focusin", onFocusIn);
+    root.addEventListener("focusout", onFocusOut);
     function render(route) {
       if (current && current.destroy) current.destroy();
       clear(page);
       var def = ROUTES.filter(function(r) {
         return r.id === route;
       })[0] || ROUTES[0];
-      currentRoute = def.id;
       current = def.view.mount(page, ctx) || null;
       main.scrollTop = 0;
       Array.prototype.forEach.call(dock.children, function(btn) {
@@ -4680,6 +5091,9 @@
       root,
       destroy: function() {
         unsubscribe();
+        root.removeEventListener("focusin", onFocusIn);
+        root.removeEventListener("focusout", onFocusOut);
+        root.classList.remove("fc-root--editing");
         lock.destroy();
         if (current && current.destroy) current.destroy();
         clear(page);
@@ -4714,7 +5128,7 @@
   async function mount(container, roche) {
     ensureStyle();
     container.classList.add("fc-host");
-    var created = await createApp({ container, roche, version: "0.3.3" });
+    var created = await createApp({ container, roche, version: "0.4.0" });
     app = created;
     shell = mountShell(container, created.ctx);
   }
@@ -4737,7 +5151,7 @@
   window.RochePlugin.register({
     id: "focus-companion",
     name: "角色陪伴番茄钟",
-    version: "0.3.3",
+    version: "0.4.0",
     description: "专注计时、专注记录与统计，后续加入角色陪伴与语音。",
     apps: [
       {
