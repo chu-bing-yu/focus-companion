@@ -2,7 +2,7 @@
 
 首页待办清单 + 每日目标 → 点待办进入番茄钟 → 聊天单独一屏。
 五种角色模式、四项监督权限、AI 聊天（自定义提示词）。
-当前版本 **0.12.0**。语音、立绘点触、主聊天注入在后续阶段。
+当前版本 **0.13.0**。语音、主聊天注入在后续阶段。
 
 界面分三屏，都在「专注」这个 App 内：
 
@@ -22,7 +22,18 @@
 - **聊天设置**（聊天页右上角齿轮，无全局退出）：开始后默认进计时页/聊天室、主动说话开关与频率、动作/旁白开关、四项角色权限（加时/禁言/锁房间/改密码）、AI 气泡数、上下文条数、房间与锁、聊天/主动说话提示词、按角色兜底、控制台（完整 SYSTEM + 聊天室上下文 + token 估算）
 - 点已开启的权限行打开配置弹窗，支持取消/保存：加时量/单次/累计、禁言最长、锁房间最短/最长/确认；设置页不再重复
 - 控制台实时显示权限格式注入：开关打开出现 `[[extend]] / [[mute]] / [[lock]] / [[password]]`，关闭即消失
+- **我的消息可修改**：点自己发的气泡 →「编辑这条」，后续对话用改后的文本，不改时间戳
+- **聊天美化**（聊天设置最上方）：我的气泡 / 角色气泡 / 旁白的颜色、圆角、字号、气泡宽度、时间显示；带实时预览，3 套预设，颜色可「跟随主题」
+- **格式提示词可自定义**：聊天、主动说话、便签、互动各有一份格式模板，默认只有气泡条数 / 旁白规则 / 已授权动作标签；支持 `{{bubble_min}} {{bubble_max}} {{narration}} {{permissions}}`，正文里写 `{{format}}` 就内联，不写则作为独立 system 追加
+- **便签生成规则**：全部随机 / 只从勾选的样式里随机 / 固定某一款；旧数据默认仍是全部随机
+- **便签高亮样式**：每款样式可单独设 `==高亮==` 的颜色与显示方式（马克笔 / 下划线 / 只改字色 / 实心块）
 - 提示词支持 `{{format}}`（格式规则）与 `{{history}}`（上下文消息）占位符，点击插入
+- **互动页**（B2 轻触 / C2 相伴）：与聊天页并列，从计时页「互动」进入，返回计时页；参考恋爱游戏主界面，全屏立绘 + 可点热区
+- 立绘支持上传（长边压缩到 1080 存本机 `fc:portrait`）或填图片外链；热区在互动页右上角「编辑」里拖拽框选建立，支持矩形/椭圆、命名、拖动改范围
+- 每个热区可配：本地台词（一行一句，随机取）、是否用 AI 回应、该部位补充设定、冷却秒数；同一点位有冷却，避免连点刷屏与连续计费
+- 点触反馈显示为立绘下方气泡，同时写入聊天记录（`scene: 'touch'`），并累加未读
+- 互动页底部「聊天」打开聊天小窗：列表 + 输入 + 小飞机，完全复用聊天室逻辑与美化，**不提供任何聊天配置入口**
+- 互动提示词与互动格式提示词在聊天设置里改；点触阈值固定加时本期未做（见交接文档）
 - 「修改密码」改为整行输入 + 整宽保存按钮，不再挤在标题旁
 - 主动说话统一由「主动说话」开关控制，不再有「主动回应」重复开关
 - **开始前**会弹「是否设置房间密码」：不设置 / 设置密码 / 让角色设置；聊天设置里只保留修改密码，不再有创建房间/角色设密码的重复项
@@ -73,6 +84,7 @@ https://cdn.jsdelivr.net/gh/chu-bing-yu/focus-companion@main/manifest.json
 npm install          # 只装 esbuild（devDependency）
 npm run build        # src/ → plugin.js（单文件 IIFE），并自动归档到 releases/
 npm test             # 核心逻辑单测（node --test）
+npm run e2e          # 无头 Edge 端到端（先 build；用 dev/preview.html + 假宿主）
 npm run deploy       # 发布到 GitHub（需要 GITHUB_TOKEN 环境变量）
 ```
 
@@ -115,7 +127,9 @@ src/
     permissions.js   四项监督权限与加时/禁言上限
     tasks.js         待办清单模型
     notes.js         便签筛选（时间段 / 搜索）
-    noteStyles.js    便签样式预设、随机抽取、CSS 变量
+    noteStyles.js    便签样式预设、生成规则、高亮方式、CSS 变量
+    chatStyle.js     聊天气泡外观：默认值、预设、CSS 变量
+    touch.js         立绘点触：热区归一化、命中测试、冷却
     aiActions.js     AI 动作标签与多气泡解析
     chatFormat.js    旁白/动作拆分
     apiLogs.js       API 调用记录归一化
@@ -135,10 +149,12 @@ src/
     dom.js           h()/SVG/事件工具
     components.js    图标、卡片、弹层
     lock.js          锁房间遮罩与紧急退出
+    chatPanel.js     聊天面板（聊天页与互动小窗共用）
     recordDetail.js  记录详情（便签 / 聊天存档）
     noteText.js      便签富文本渲染
-    views/           focus / stats / notes / settings
+    views/           focus / touch / stats / notes / settings
 note-styles.css      便签样式参考（CSS 变量 / 纹理 / 配色示例）
+dev/e2e/run.mjs      无头 Edge 端到端（CDP，可直接复跑）
   lib/
     bus.js           事件总线与事件名
     mt.js            统一文案与拒绝原因
@@ -149,7 +165,7 @@ probe/               宿主能力探针（一次性）
 
 ## 数据
 
-`roche.storage` 九个 key：`fc:settings`（schema 13） / `fc:session` / `fc:records` / `fc:tasks` / `fc:phrases` / `fc:logs` / `fc:chat` / `fc:chatOwner` / `fc:meta`。
+`roche.storage` 十个 key：`fc:settings`（schema 15） / `fc:session` / `fc:records` / `fc:tasks` / `fc:phrases` / `fc:logs` / `fc:chat` / `fc:chatOwner` / `fc:portrait`（互动立绘） / `fc:meta`。
 
 **卸载插件时宿主会清空这些数据**，请在设置页定期「导出备份」。聊天记录存在 `fc:chat`，同一轮退出/重开 App 会保留；兜底语句按角色 ID 存在 `fc:phrases`。
 
